@@ -7,28 +7,25 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect, FC } from "react";
-import index from "../../models/index";
-
-const indexModel = new index();
-
-const Login: FC = () => {
+import { useFonts } from "expo-font";
+import { Props } from "@/typings/navigation";
+const Login: FC<Props> = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [btnColor, setBtnColor] = useState("rgba(255,86,120, .3)");
   const loginClick = () => {
+    navigation.navigate("Index");
     if (!username || !password) {
       console.log("请完善登录信息");
     }
   };
-  const getTestData = async () => {
-    const res = await indexModel.getBaseInfo();
-    console.log(res);
-  };
+  const [loaded] = useFonts({
+    LongCang: require("../../../assets/fonts/LongCang-Regular.ttf"),
+  });
   useEffect(() => {
     if (username !== "" && password !== "") {
       setBtnColor("#FF5678");
     }
-    getTestData();
   }, [username, password]);
   return (
     <View style={styles.loginContainer}>
@@ -37,9 +34,10 @@ const Login: FC = () => {
         source={require("../../assets/images/login_bg.png")}
       >
         <View>
-          <Text style={{ fontSize: 30, marginBottom: 90, color: "#636e72" }}>
-            小时光
-          </Text>
+          <ImageBackground
+            style={{ width: 150, height: 50, marginBottom: 80 }}
+            source={require("../../assets/images/logo.png")}
+          />
         </View>
         <View style={styles.loginTitle}>
           <Text

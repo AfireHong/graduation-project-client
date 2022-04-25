@@ -1,5 +1,10 @@
-import React, { View } from "react-native";
+import React, { View, Text } from "react-native";
+const Home = () => {
+  return (
+    <View>
+      <Text>主页</Text>
+    </View>
+  );
+};
 
-export default function Home() {
-  return <View></View>;
-}
+export default Home;
