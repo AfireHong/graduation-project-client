@@ -1,7 +1,8 @@
-import React from "react-native";
+import React, { View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../Home";
 import Mine from "../Mine";
+import Create from "../Create";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 const Index = () => {
   const Tab = createBottomTabNavigator();
@@ -9,25 +10,48 @@ const Index = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, size, color }) => {
-          let iconName = "home";
-          console.log(route.name);
-
+          let tabItem = <FontAwesome name={"home"} size={size} color={color} />;
           switch (route.name) {
-            case "主页":
-              iconName = "home";
+            case "home":
+              tabItem = <FontAwesome name={"home"} size={size} color={color} />;
               break;
-            case "我":
-              iconName = "user";
+            case "mine":
+              tabItem = <FontAwesome name={"user"} size={size} color={color} />;
+              break;
+            case "create":
+              tabItem = (
+                <FontAwesome color={"#ff0033"} name={"plus-square"} size={34} />
+              );
               break;
           }
-          return <FontAwesome name={iconName} size={size} color={color} />;
+          return tabItem;
         },
-        tabBarActiveTintColor: "#FF5678",
+        tabBarActiveTintColor: "#f9829a",
         tabBarInactiveTintColor: "#999",
+        tabBarShowLabel: false,
       })}
     >
-      <Tab.Screen name="主页" component={Home} />
-      <Tab.Screen name="我" component={Mine} />
+      <Tab.Screen
+        name="home"
+        component={Home}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="create"
+        component={Create}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="mine"
+        component={Mine}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Tab.Navigator>
   );
 };

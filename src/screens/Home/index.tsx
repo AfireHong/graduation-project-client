@@ -1,9 +1,25 @@
-import React, { View, Text } from "react-native";
+import React, { View, Text, SafeAreaView, StatusBar } from "react-native";
+// import { WebView } from "react-native-webview";
 const Home = () => {
   return (
-    <View>
-      <Text>主页</Text>
-    </View>
+    <SafeAreaView>
+      <StatusBar backgroundColor="blue" barStyle="dark-content" />
+      <View
+        style={{
+          backgroundColor: "#af6363",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        {/* <Text>主页</Text> */}
+      </View>
+    </SafeAreaView>
+    // <WebView
+    //   source={{ uri: "https://afirehong.cn" }}
+    //   style={{ marginTop: 20 }}
+    // />
   );
 };
 
