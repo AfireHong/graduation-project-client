@@ -1,15 +1,27 @@
-import React, { View, Text, StyleSheet, Image, StatusBar } from "react-native";
+import React, {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  StatusBar,
+  TouchableOpacity,
+} from "react-native";
 import { useState } from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import StatusBarHeight from "@/utlis/getStatusBarHeight";
+
 const BaseInfo = () => {
   return (
     <View style={styles.baseInfo}>
       <StatusBar backgroundColor="blue" barStyle="dark-content" />
       <View style={styles.operate}>
-        <FontAwesome name={"navicon"} size={24} color={"#fff"} />
-        <FontAwesome name={"share-square-o"} size={24} color={"#fff"} />
+        <TouchableOpacity>
+          <FontAwesome name={"navicon"} size={24} color={"#fff"} />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <FontAwesome name={"share-square-o"} size={24} color={"#fff"} />
+        </TouchableOpacity>
       </View>
       <View style={styles.avatar}>
         <View>
@@ -29,26 +41,26 @@ const BaseInfo = () => {
       </View>
       <View style={styles.third}>
         <View style={styles.trendView}>
-          <View style={styles.trend}>
+          <TouchableOpacity style={styles.trend}>
             <Text style={styles.trendNumText}>20</Text>
             <Text style={styles.trendDescText}>关注</Text>
-          </View>
-          <View style={styles.trend}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.trend}>
             <Text style={styles.trendNumText}>12</Text>
             <Text style={styles.trendDescText}>粉丝</Text>
-          </View>
-          <View style={styles.trend}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.trend}>
             <Text style={styles.trendNumText}>0</Text>
             <Text style={styles.trendDescText}>获赞与收藏</Text>
-          </View>
+          </TouchableOpacity>
         </View>
         <View style={styles.editInfo}>
-          <View style={styles.editInfoBtn}>
+          <TouchableOpacity style={styles.editInfoBtn}>
             <Text style={styles.editInfoBtnTxt}>编辑资料</Text>
-          </View>
-          <View style={styles.editSettingBtn}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.editSettingBtn}>
             <AntDesign name={"setting"} size={18} color={"#eee"} />
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -56,18 +68,34 @@ const BaseInfo = () => {
 };
 const MomentDetail = () => {
   const [curTab, setCurTab] = useState(0);
+  const tabs = [
+    {
+      id: 0,
+      name: "时光",
+    },
+    {
+      id: 1,
+      name: "收藏",
+    },
+    {
+      id: 2,
+      name: "赞过",
+    },
+  ];
   return (
     <View style={styles.momentDetail}>
       <View style={styles.detailTabView}>
-        <View style={styles.activeTab}>
-          <Text style={styles.tabText}>时光</Text>
-        </View>
-        <View>
-          <Text style={styles.tabText}>收藏</Text>
-        </View>
-        <View>
-          <Text style={styles.tabText}>赞过</Text>
-        </View>
+        {tabs.map((item) => {
+          return (
+            <TouchableOpacity
+              key={item.id}
+              style={item.id === curTab ? styles.activeTab : {}}
+              onPress={() => setCurTab(item.id)}
+            >
+              <Text style={styles.tabText}>{item.name}</Text>
+            </TouchableOpacity>
+          );
+        })}
       </View>
       <View
         style={{
