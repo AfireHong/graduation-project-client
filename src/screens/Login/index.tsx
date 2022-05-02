@@ -7,32 +7,68 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect, FC } from "react";
-import { useFonts } from "expo-font";
+// import { useFonts } from "expo-font";
 import { Props } from "@/typings/navigation";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import STATUSBAR_HEIGHT from "../../utlis/getStatusBarHeight";
+import Toast from "react-native-root-toast";
+
 const Login: FC<Props> = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [btnColor, setBtnColor] = useState("rgba(255,86,120, .3)");
   const loginClick = () => {
-    navigation.navigate("Index");
+    // navigation.navigate("Index");
+    Toast.show("登录成功", {
+      duration: Toast.durations.SHORT,
+      position: Toast.positions.CENTER,
+    });
     if (!username || !password) {
       console.log("请完善登录信息");
     }
   };
-  const [loaded] = useFonts({
-    LongCang: require("../../../assets/fonts/LongCang-Regular.ttf"),
-  });
+  // const [loaded] = useFonts({
+  //   LongCang: require("../../../assets/fonts/LongCang-Regular.ttf"),
+  // });
   useEffect(() => {
     if (username !== "" && password !== "") {
       setBtnColor("#FF5678");
     }
   }, [username, password]);
+
+  const returnWelcome = () => {
+    console.log("返回");
+    navigation.goBack("welcome");
+  };
   return (
     <View style={styles.loginContainer}>
       <ImageBackground
         style={styles.imageStyle}
         source={require("../../assets/images/login_bg.png")}
       >
+        <View
+          style={{
+            position: "absolute",
+            top: STATUSBAR_HEIGHT + 30,
+            left: 20,
+          }}
+        >
+          <TouchableOpacity onPress={() => returnWelcome()}>
+            <View
+              style={{
+                width: 40,
+                height: 40,
+                backgroundColor: "rgba(255,86,120,0.1)",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: 20,
+              }}
+            >
+              <FontAwesome name={"arrow-left"} size={20} color={"#FF5678"} />
+            </View>
+          </TouchableOpacity>
+        </View>
         <View>
           <ImageBackground
             style={{ width: 150, height: 50, marginBottom: 80 }}
@@ -94,6 +130,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    position: "relative",
   },
   imageStyle: {
     flex: 1,

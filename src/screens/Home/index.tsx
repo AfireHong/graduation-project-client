@@ -6,14 +6,13 @@ const Home = () => {
       <StatusBar backgroundColor="blue" barStyle="dark-content" />
       <View
         style={{
-          backgroundColor: "#af6363",
           justifyContent: "center",
           alignItems: "center",
           width: "100%",
           height: "100%",
         }}
       >
-        {/* <Text>主页</Text> */}
+        <Text>主页</Text>
       </View>
     </SafeAreaView>
     // <WebView
