@@ -1,23 +1,26 @@
 import {
   View,
-  Text,
   StyleSheet,
   ImageBackground,
   TextInput,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState, useEffect, FC } from "react";
 // import { useFonts } from "expo-font";
+import Button from "@/components/Button";
 import { Props } from "@/typings/navigation";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import STATUSBAR_HEIGHT from "../../utlis/getStatusBarHeight";
 import Toast from "react-native-root-toast";
+import Text from "@/components/Text";
 
 const Login: FC<Props> = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [btnColor, setBtnColor] = useState("rgba(255,86,120, .3)");
-  const loginClick = () => {
+  const [loading, setLoading] = useState(false);
+  const handleLogin = () => {
     // navigation.navigate("Index");
     if (!username || !password) {
       Toast.show("请完善登录信息", {
@@ -102,17 +105,21 @@ const Login: FC<Props> = ({ navigation }) => {
             secureTextEntry={true}
           />
         </View>
-        <TouchableOpacity
+        <Button
+          gradient
           style={{
-            width: 311,
-            height: 52,
-            borderRadius: 40,
-            backgroundColor: btnColor,
+            width: 300,
           }}
-          onPress={loginClick}
+          onPress={() => handleLogin()}
         >
-          <Text style={styles.loginBtnText}>登录</Text>
-        </TouchableOpacity>
+          {loading ? (
+            <ActivityIndicator size="small" color="white" />
+          ) : (
+            <Text bold white center>
+              登 录
+            </Text>
+          )}
+        </Button>
         <View style={{ marginTop: 70 }}>
           <Text style={{ textAlign: "center", color: "#636e72" }}>or</Text>
           <Text style={{ textAlign: "center", marginTop: 20 }}>

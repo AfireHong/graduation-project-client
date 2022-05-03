@@ -15,6 +15,9 @@ import Text from "@/components/Text";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 import { theme } from "@/constants";
+import index from "@/models";
+
+const indexModel = new index();
 
 const Register: FC<Props> = ({ navigation }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -25,8 +28,8 @@ const Register: FC<Props> = ({ navigation }) => {
   const [repassword, setRePassword] = useState("");
   const [aniFinished, setAniStatus] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
 
-  const errors: string[] = [];
   const returnWelcome = () => {
     console.log("返回");
     navigation.goBack("welcome");
@@ -45,7 +48,7 @@ const Register: FC<Props> = ({ navigation }) => {
       }),
       Animated.timing(fadeAnim, {
         toValue: 0,
-        duration: 1000,
+        duration: 500,
         useNativeDriver: true,
       }),
       Animated.timing(formAniShow, {
@@ -60,11 +63,28 @@ const Register: FC<Props> = ({ navigation }) => {
   const hasErrors = (key: string) =>
     errors.includes(key) ? styles.hasErrors : null;
 
-  const handleSign = () => {
+  const valiHandle = () => {
+    const error = [];
+    if (!username) error.push("username");
+    if (!password) error.push("password");
+    if (!repassword) error.push("repassword");
+    setErrors(error);
+    if (error.length) return false;
+    return true;
+  };
+
+  const handleSign = async () => {
+    if (!valiHandle()) {
+      return false;
+    }
+
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
+    const res = await indexModel.signUp({
+      username,
+      password,
+    });
+    console.log(res);
+    setLoading(false);
   };
   useEffect(() => {
     startAni();
@@ -133,17 +153,22 @@ const Register: FC<Props> = ({ navigation }) => {
           <Input
             label="用户名"
             style={[styles.input, hasErrors("username")]}
+            error={hasErrors("username")}
             value={username}
             onChangeText={(text: string) => setUsername(text)}
           />
           <Input
             label="密码"
+            secure
+            error={hasErrors("password")}
             style={[styles.input, hasErrors("password")]}
             value={password}
             onChangeText={(text: string) => setPassword(text)}
           />
           <Input
-            label="再次输入密码"
+            label="确认密码"
+            secure
+            error={hasErrors("repassword")}
             style={[styles.input, hasErrors("repassword")]}
             value={repassword}
             onChangeText={(text: string) => setRePassword(text)}
