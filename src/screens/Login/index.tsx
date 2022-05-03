@@ -19,12 +19,11 @@ const Login: FC<Props> = ({ navigation }) => {
   const [btnColor, setBtnColor] = useState("rgba(255,86,120, .3)");
   const loginClick = () => {
     // navigation.navigate("Index");
-    Toast.show("登录成功", {
-      duration: Toast.durations.SHORT,
-      position: Toast.positions.CENTER,
-    });
     if (!username || !password) {
-      console.log("请完善登录信息");
+      Toast.show("请完善登录信息", {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.CENTER,
+      });
     }
   };
   // const [loaded] = useFonts({

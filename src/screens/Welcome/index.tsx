@@ -36,6 +36,7 @@ const WelCome: FC<Props> = ({ navigation }) => {
               justifyContent: "center",
               alignItems: "center",
             }}
+            onPress={() => navigation.navigate("Register")}
           >
             <Text
               style={{

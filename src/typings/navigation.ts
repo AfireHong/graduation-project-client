@@ -3,5 +3,6 @@ export type RootStackParamList = {
   Login: undefined;
   Index: undefined;
   Welcome: undefined;
+  Register: undefined;
 };
 export type Props = NativeStackScreenProps<RootStackParamList>;
