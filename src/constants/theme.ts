@@ -7,7 +7,7 @@ export const colors = {
   black: "#323643",
   white: "#FFFFFF",
   gray: "#9DA3B4",
-  gray2: "#C5CCD6",
+  gray2: "#636e72",
 };
 
 export const sizes = {

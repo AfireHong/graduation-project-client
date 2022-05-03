@@ -1,10 +1,11 @@
 interface commonRsp<T> {
   msg: string;
-  code: number;
+  success: boolean;
   data: T;
 }
 
 interface userReq {
-  username: string;
+  nickname?: string;
+  acount: string;
   password: string;
 }

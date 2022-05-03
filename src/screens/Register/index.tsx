@@ -16,6 +16,8 @@ import Input from "@/components/Input";
 import Button from "@/components/Button";
 import { theme } from "@/constants";
 import index from "@/models";
+import encryptStr from "@/utlis/encryptStr";
+import Toast from "react-native-root-toast";
 
 const indexModel = new index();
 
@@ -23,7 +25,8 @@ const Register: FC<Props> = ({ navigation }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const moveAnim = useRef(new Animated.Value(100)).current;
   const formAniShow = useRef(new Animated.Value(0)).current;
-  const [username, setUsername] = useState("");
+  const [acount, setAcount] = useState("");
+  const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [repassword, setRePassword] = useState("");
   const [aniFinished, setAniStatus] = useState(false);
@@ -65,7 +68,7 @@ const Register: FC<Props> = ({ navigation }) => {
 
   const valiHandle = () => {
     const error = [];
-    if (!username) error.push("username");
+    if (!nickname) error.push("nickname");
     if (!password) error.push("password");
     if (!repassword) error.push("repassword");
     setErrors(error);
@@ -79,11 +82,24 @@ const Register: FC<Props> = ({ navigation }) => {
     }
 
     setLoading(true);
-    const res = await indexModel.signUp({
-      username,
-      password,
-    });
-    console.log(res);
+    const reqData = {
+      nickname,
+      acount,
+      password: encryptStr(password),
+    };
+    const res = await indexModel.signUp(reqData);
+    if (res?.success) {
+      Toast.show("注册成功！为您自动登录", {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.CENTER,
+      });
+      navigation.navigate("Index");
+    } else {
+      Toast.show(res?.msg ?? "注册失败！", {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.CENTER,
+      });
+    }
     setLoading(false);
   };
   useEffect(() => {
@@ -94,8 +110,8 @@ const Register: FC<Props> = ({ navigation }) => {
       style={{
         flex: 1,
         justifyContent: "center",
-        alignItems: "center",
       }}
+      behavior="padding"
     >
       <ImageBackground
         style={styles.bgImage}
@@ -151,11 +167,18 @@ const Register: FC<Props> = ({ navigation }) => {
             注册
           </Text>
           <Input
-            label="用户名"
-            style={[styles.input, hasErrors("username")]}
+            label="账户名-将作为您的唯一凭证"
+            style={[styles.input, hasErrors("acount")]}
+            error={hasErrors("acount")}
+            value={acount}
+            onChangeText={(text: string) => setAcount(text)}
+          />
+          <Input
+            label="昵称"
+            style={[styles.input, hasErrors("nickname")]}
             error={hasErrors("username")}
-            value={username}
-            onChangeText={(text: string) => setUsername(text)}
+            value={nickname}
+            onChangeText={(text: string) => setNickname(text)}
           />
           <Input
             label="密码"
