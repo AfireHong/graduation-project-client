@@ -4,6 +4,7 @@ import Home from "../Home";
 import Mine from "../Mine";
 import Create from "../Create";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+
 const Index = () => {
   const Tab = createBottomTabNavigator();
   return (

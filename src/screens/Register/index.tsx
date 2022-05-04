@@ -18,6 +18,7 @@ import { theme } from "@/constants";
 import index from "@/models";
 import encryptStr from "@/utlis/encryptStr";
 import Toast from "react-native-root-toast";
+import { setStorage } from "@/utlis/storage";
 
 const indexModel = new index();
 
@@ -93,6 +94,8 @@ const Register: FC<Props> = ({ navigation }) => {
         duration: Toast.durations.SHORT,
         position: Toast.positions.CENTER,
       });
+      setStorage("token", res.data.token);
+      setStorage("userInfo", res.data.userInfo);
       navigation.navigate("Index");
     } else {
       Toast.show(res?.msg ?? "注册失败！", {

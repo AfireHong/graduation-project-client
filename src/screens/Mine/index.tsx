@@ -6,12 +6,22 @@ import React, {
   StatusBar,
   TouchableOpacity,
 } from "react-native";
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import StatusBarHeight from "@/utlis/getStatusBarHeight";
+import { getStorage } from "@/utlis/storage";
 
 const BaseInfo = () => {
+  const [userInfo, setUserInfo] = useState<userInfo>();
+  const getUserInfo = useCallback(async () => {
+    const info = await getStorage("userInfo");
+    setUserInfo(info);
+  }, []);
+
+  useEffect(() => {
+    getUserInfo();
+  }, [getUserInfo]);
   return (
     <View style={styles.baseInfo}>
       <StatusBar backgroundColor="blue" barStyle="dark-content" />
@@ -31,7 +41,7 @@ const BaseInfo = () => {
           />
         </View>
         <View style={styles.baseName}>
-          <Text style={styles.nickName}>我是饼干</Text>
+          <Text style={styles.nickName}>{userInfo?.user_nickname}</Text>
           <Text style={styles.userId}>ID: TEST123456</Text>
         </View>
       </View>

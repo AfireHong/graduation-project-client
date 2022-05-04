@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import React, { useState, useEffect, FC } from "react";
+import React, { useState, FC } from "react";
 // import { useFonts } from "expo-font";
 import Button from "@/components/Button";
 import { Props } from "@/typings/navigation";
@@ -14,16 +14,35 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import STATUSBAR_HEIGHT from "../../utlis/getStatusBarHeight";
 import Toast from "react-native-root-toast";
 import Text from "@/components/Text";
+import indexModel from "@/models/index";
+import encryptStr from "@/utlis/encryptStr";
+import { setStorage } from "@/utlis/storage";
+
+const IndexModel = new indexModel();
 
 const Login: FC<Props> = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [btnColor, setBtnColor] = useState("rgba(255,86,120, .3)");
   const [loading, setLoading] = useState(false);
-  const handleLogin = () => {
-    // navigation.navigate("Index");
+  const handleLogin = async () => {
+    setLoading(true);
     if (!username || !password) {
-      Toast.show("请完善登录信息", {
+      return Toast.show("请完善登录信息", {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.CENTER,
+      });
+    }
+    const res = await IndexModel.login({
+      acount: username,
+      password: encryptStr(password),
+    });
+    setLoading(false);
+    if (res?.success) {
+      setStorage("token", res.data.token);
+      setStorage("userInfo", res.data.userInfo);
+      navigation.navigate("Index");
+    } else {
+      Toast.show(res?.msg || "登录失败", {
         duration: Toast.durations.SHORT,
         position: Toast.positions.CENTER,
       });
@@ -32,12 +51,6 @@ const Login: FC<Props> = ({ navigation }) => {
   // const [loaded] = useFonts({
   //   LongCang: require("../../../assets/fonts/LongCang-Regular.ttf"),
   // });
-  useEffect(() => {
-    if (username !== "" && password !== "") {
-      setBtnColor("#FF5678");
-    }
-  }, [username, password]);
-
   const returnWelcome = () => {
     console.log("返回");
     navigation.goBack("welcome");

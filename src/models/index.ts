@@ -5,9 +5,17 @@ export default class index extends HTTP {
     return this.fetchData("/test");
   }
   login(data: userReq) {
-    return this.fetchData("/user/login", data, "post");
+    return this.fetchData<{ userInfo: userInfo; token: string }>(
+      "/user/login",
+      data,
+      "post"
+    );
   }
   signUp(data: userReq) {
-    return this.fetchData("/user/signUp", data, "post");
+    return this.fetchData<{ userInfo: userInfo; token: string }>(
+      "/user/signUp",
+      data,
+      "post"
+    );
   }
 }
