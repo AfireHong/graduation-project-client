@@ -18,4 +18,7 @@ export default class index extends HTTP {
       "post"
     );
   }
+  verifyUser() {
+    return this.fetchData("/user/verify");
+  }
 }

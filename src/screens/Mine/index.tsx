@@ -6,13 +6,15 @@ import React, {
   StatusBar,
   TouchableOpacity,
 } from "react-native";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, FC } from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import StatusBarHeight from "@/utlis/getStatusBarHeight";
 import { getStorage } from "@/utlis/storage";
+import { Props } from "@/typings/navigation";
 
-const BaseInfo = () => {
+const BaseInfo: FC<{ goSetting: () => void }> = (props) => {
+  const { goSetting } = props;
   const [userInfo, setUserInfo] = useState<userInfo>();
   const getUserInfo = useCallback(async () => {
     const info = await getStorage("userInfo");
@@ -68,7 +70,7 @@ const BaseInfo = () => {
           <TouchableOpacity style={styles.editInfoBtn}>
             <Text style={styles.editInfoBtnTxt}>编辑资料</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.editSettingBtn}>
+          <TouchableOpacity style={styles.editSettingBtn} onPress={goSetting}>
             <AntDesign name={"setting"} size={18} color={"#eee"} />
           </TouchableOpacity>
         </View>
@@ -124,10 +126,13 @@ const MomentDetail = () => {
     </View>
   );
 };
-const Mine = () => {
+const Mine: FC<Props> = ({ navigation }) => {
+  const goSetting = () => {
+    navigation.navigate("Setting");
+  };
   return (
     <View style={styles.mine}>
-      <BaseInfo />
+      <BaseInfo goSetting={goSetting} />
       <MomentDetail />
     </View>
   );

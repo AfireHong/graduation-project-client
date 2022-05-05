@@ -4,8 +4,21 @@ import Home from "../Home";
 import Mine from "../Mine";
 import Create from "../Create";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import IndexModel from "@/models";
+import { useCallback, FC } from "react";
+import { Props } from "@/typings/navigation";
 
-const Index = () => {
+const indexModel = new IndexModel();
+const Index: FC<Props> = ({ navigation }) => {
+  const verify = useCallback(async () => {
+    const res = await indexModel.verifyUser();
+    if (!res?.success) {
+      navigation.navigate("Welcome");
+    }
+  }, [navigation]);
+
+  verify();
+
   const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator

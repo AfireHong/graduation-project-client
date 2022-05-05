@@ -17,3 +17,11 @@ export const setStorage = async (key: string, value: any) => {
     // saving error
   }
 };
+
+export const removeItem = async (key: string) => {
+  try {
+    await AsyncStorage.removeItem(key);
+  } catch (e) {
+    // saving error
+  }
+};

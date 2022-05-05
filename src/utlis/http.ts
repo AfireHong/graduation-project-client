@@ -1,9 +1,11 @@
 import { SERVICE_URL } from "../config/service";
+import { getStorage } from "./storage";
 
 const header = {
   "User-Agent": "",
   "Content-Type": "application/json;charset=UTF-8",
   Accept: "application/json",
+  authorization: "",
 };
 
 export default class HTTP {
@@ -13,6 +15,8 @@ export default class HTTP {
     method = "get"
   ) {
     try {
+      const token = await getStorage("token");
+      header.authorization = token;
       const options: RequestInit = {
         method: method,
         headers: header,
