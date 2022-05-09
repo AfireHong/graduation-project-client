@@ -3,26 +3,31 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../Home";
 import Mine from "../Mine";
 import Create from "../Create";
+import Discover from "../Discover";
+import Message from "../Message";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import IndexModel from "@/models";
-import { useCallback, FC } from "react";
+import { useCallback, FC, useEffect } from "react";
 import { Props } from "@/typings/navigation";
 
 const indexModel = new IndexModel();
 const Index: FC<Props> = ({ navigation }) => {
   const verify = useCallback(async () => {
     const res = await indexModel.verifyUser();
+    console.log(res);
+
     if (!res?.success) {
       navigation.navigate("Welcome");
     }
   }, [navigation]);
 
-  verify();
-
+  useEffect(() => {
+    verify();
+  });
   const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
+      screenOptions={({ route, navigation }) => ({
         tabBarIcon: ({ focused, size, color }) => {
           let tabItem = <FontAwesome name={"home"} size={size} color={color} />;
           switch (route.name) {
@@ -32,17 +37,32 @@ const Index: FC<Props> = ({ navigation }) => {
             case "mine":
               tabItem = <FontAwesome name={"user"} size={size} color={color} />;
               break;
+            case "message":
+              tabItem = (
+                <FontAwesome name={"envelope"} size={size} color={color} />
+              );
+              break;
+            case "discover":
+              tabItem = (
+                <FontAwesome name={"search"} size={size} color={color} />
+              );
+              break;
             case "create":
               tabItem = (
-                <FontAwesome color={"#ff0033"} name={"plus-square"} size={34} />
+                <FontAwesome
+                  color={"#ff0033"}
+                  name={"plus-square"}
+                  size={size}
+                />
               );
               break;
           }
           return tabItem;
         },
-        tabBarActiveTintColor: "#f9829a",
+        tabBarActiveTintColor: "#000000",
         tabBarInactiveTintColor: "#999",
         tabBarShowLabel: false,
+        backBehavior: "history",
       })}
     >
       <Tab.Screen
@@ -53,8 +73,23 @@ const Index: FC<Props> = ({ navigation }) => {
         }}
       />
       <Tab.Screen
+        name="discover"
+        component={Discover}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
         name="create"
         component={Create}
+        options={{
+          headerShown: false,
+          tabBarStyle: { display: "none" },
+        }}
+      />
+      <Tab.Screen
+        name="message"
+        component={Message}
         options={{
           headerShown: false,
         }}
