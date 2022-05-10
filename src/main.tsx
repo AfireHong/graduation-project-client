@@ -4,6 +4,7 @@ import Root from "@/screens/Index";
 import WelCome from "@/screens/Welcome";
 import Register from "@/screens/Register";
 import Setting from "@/screens/Setting";
+import User from "@/screens/User";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/typings/navigation";
@@ -43,6 +44,13 @@ const stackConfig = [
   {
     name: "Setting",
     component: Setting,
+  },
+  {
+    name: "User",
+    component: User,
+    options: {
+      headerShown: false,
+    },
   },
 ];
 export default function App() {

@@ -5,5 +5,6 @@ export type RootStackParamList = {
   Welcome: undefined;
   Register: undefined;
   Setting: undefined;
+  User: undefined;
 };
 export type Props = NativeStackScreenProps<RootStackParamList>;

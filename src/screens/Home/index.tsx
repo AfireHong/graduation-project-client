@@ -3,12 +3,14 @@ import React, {
   Text,
   SafeAreaView,
   StatusBar,
-  Image,
+  TouchableOpacity,
+  StyleSheet,
 } from "react-native";
-import { ReactElement } from "react";
+import { ReactElement, useState, FC } from "react";
 import MasonryList from "@react-native-seoul/masonry-list";
 import MomentCard from "@/components/MomentCard";
 import { MomentItem } from "@/components/MomentCard";
+import { Props } from "@/typings/navigation";
 
 const data: MomentItem[] = [
   {
@@ -72,31 +74,49 @@ const data: MomentItem[] = [
     likes: 12031,
   },
 ];
-const Home = () => {
+const Home: FC<Props> = ({ navigation }) => {
+  const [currentTab, setCurrentTab] = useState(1);
+  const toUserProfile = () => {
+    navigation.navigate("User");
+  };
   const renderItem = ({
     item,
   }: {
     item: MomentItem;
     index?: number;
   }): ReactElement => {
-    return <MomentCard item={item} />;
+    return <MomentCard item={item} userClick={toUserProfile} />;
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar backgroundColor="blue" barStyle="dark-content" />
+      <View
+        style={{
+          justifyContent: "center",
+          flexDirection: "row",
+          marginBottom: 10,
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => setCurrentTab(2)}
+          style={[
+            {
+              marginRight: 30,
+            },
+            currentTab === 2 ? styles.activeTab : {},
+          ]}
+        >
+          <Text style={styles.tabText}>关注</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setCurrentTab(1)}
+          style={currentTab === 1 ? styles.activeTab : {}}
+        >
+          <Text style={styles.tabText}>时光</Text>
+        </TouchableOpacity>
+      </View>
       <MasonryList
         keyExtractor={(item: MomentItem): string => item.id}
-        // loading={true}
-        // LoadingView={
-        //   <View>
-        //     <Text>加载中···</Text>
-        //   </View>
-        // }
-        ListHeaderComponent={
-          <View>
-            <Text>头部测试</Text>
-          </View>
-        }
         contentContainerStyle={{
           paddingHorizontal: 10,
           alignSelf: "stretch",
@@ -110,4 +130,15 @@ const Home = () => {
   );
 };
 
+const styles = StyleSheet.create({
+  tabText: {
+    fontWeight: "800",
+    fontSize: 16,
+  },
+  activeTab: {
+    borderBottomWidth: 3,
+    paddingBottom: 4,
+    borderColor: "#ff0033",
+  },
+});
 export default Home;

@@ -69,6 +69,7 @@ const Register: FC<Props> = ({ navigation }) => {
 
   const valiHandle = () => {
     const error = [];
+    if (!acount) error.push("acount");
     if (!nickname) error.push("nickname");
     if (!password) error.push("password");
     if (!repassword) error.push("repassword");
@@ -179,7 +180,7 @@ const Register: FC<Props> = ({ navigation }) => {
           <Input
             label="昵称"
             style={[styles.input, hasErrors("nickname")]}
-            error={hasErrors("username")}
+            error={hasErrors("nickname")}
             value={nickname}
             onChangeText={(text: string) => setNickname(text)}
           />

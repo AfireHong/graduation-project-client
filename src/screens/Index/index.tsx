@@ -27,6 +27,7 @@ const Index: FC<Props> = ({ navigation }) => {
   const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator
+      initialRouteName={"home"}
       screenOptions={({ route, navigation }) => ({
         tabBarIcon: ({ focused, size, color }) => {
           let tabItem = <FontAwesome name={"home"} size={size} color={color} />;

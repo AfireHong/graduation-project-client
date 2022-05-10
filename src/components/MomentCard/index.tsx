@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React, { memo, FC, useMemo } from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
@@ -10,63 +10,65 @@ export interface MomentItem {
   likes: number;
   id: string;
 }
-const MomentCard: FC<{ item: MomentItem }> = memo(({ item }) => {
-  const { title, userAvatar, userNickname, coverImg, likes } = item;
-  const randomBool = useMemo(() => Math.random() < 0.5, []);
-  return (
-    <View style={styles.cardWrap}>
-      <Image
-        source={{
-          uri: coverImg,
-        }}
-        style={{
-          height: randomBool ? 150 : 280,
-          alignSelf: "stretch",
-        }}
-        resizeMode="cover"
-      />
-      <View style={styles.profile}>
-        <Text style={styles.title}>{title}</Text>
-        <View style={styles.info}>
-          <View style={styles.user}>
-            <Image
-              source={{
-                uri: userAvatar,
-              }}
-              style={{
-                height: 20,
-                width: 20,
-                borderRadius: 20,
-              }}
-              resizeMode="cover"
-            />
-            <Text
-              style={{
-                marginLeft: 4,
-                fontSize: 12,
-                color: "#7f7f7f",
-              }}
-            >
-              {userNickname}
-            </Text>
-          </View>
-          <View style={styles.like}>
-            <FontAwesome name={"heart-o"} color={"#7f7f7f"} />
-            <Text
-              style={{
-                color: "#7f7f7f",
-                fontSize: 12,
-                marginLeft: 4,
-              }}
-            >
-              {likes}
-            </Text>
+const MomentCard: FC<{ item: MomentItem; userClick: () => void }> = memo(
+  ({ item, userClick }) => {
+    const { title, userAvatar, userNickname, coverImg, likes } = item;
+    const randomBool = useMemo(() => Math.random() < 0.5, []);
+    return (
+      <View style={styles.cardWrap}>
+        <Image
+          source={{
+            uri: coverImg,
+          }}
+          style={{
+            height: randomBool ? 150 : 280,
+            alignSelf: "stretch",
+          }}
+          resizeMode="cover"
+        />
+        <View style={styles.profile}>
+          <Text style={styles.title}>{title}</Text>
+          <View style={styles.info}>
+            <TouchableOpacity style={styles.user} onPress={userClick}>
+              <Image
+                source={{
+                  uri: userAvatar,
+                }}
+                style={{
+                  height: 20,
+                  width: 20,
+                  borderRadius: 20,
+                }}
+                resizeMode="cover"
+              />
+              <Text
+                style={{
+                  marginLeft: 4,
+                  fontSize: 12,
+                  color: "#7f7f7f",
+                }}
+              >
+                {userNickname}
+              </Text>
+            </TouchableOpacity>
+            <View style={styles.like}>
+              <FontAwesome name={"heart-o"} color={"#7f7f7f"} />
+              <Text
+                style={{
+                  color: "#7f7f7f",
+                  fontSize: 12,
+                  marginLeft: 4,
+                }}
+              >
+                {likes}
+              </Text>
+            </View>
           </View>
         </View>
       </View>
-    </View>
-  );
-});
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   cardWrap: {
