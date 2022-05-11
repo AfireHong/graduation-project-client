@@ -2,13 +2,19 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { FC } from "react";
 import { removeItem } from "@/utlis/storage";
 import { Props } from "@/typings/navigation";
+import { CommonActions } from "@react-navigation/native";
 
 const Setting: FC<Props> = ({ navigation }) => {
   const loginOutHandle = async () => {
     console.log("登出");
     await removeItem("token");
     await removeItem("userInfo");
-    navigation.navigate("Welcome");
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: "Welcome" }],
+      })
+    );
   };
   return (
     <View style={Styles.container}>

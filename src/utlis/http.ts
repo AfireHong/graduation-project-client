@@ -16,7 +16,7 @@ export default class HTTP {
   ) {
     try {
       const token = await getStorage("token");
-      header.authorization = token;
+      header.authorization = "Bearer " + token;
       const options: RequestInit = {
         method: method,
         headers: header,

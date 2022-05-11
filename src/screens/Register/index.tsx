@@ -91,6 +91,7 @@ const Register: FC<Props> = ({ navigation }) => {
     };
     const res = await indexModel.signUp(reqData);
     if (res?.success) {
+      setLoading(false);
       Toast.show("注册成功！为您自动登录", {
         duration: Toast.durations.SHORT,
         position: Toast.positions.CENTER,
@@ -104,7 +105,6 @@ const Register: FC<Props> = ({ navigation }) => {
         position: Toast.positions.CENTER,
       });
     }
-    setLoading(false);
   };
   useEffect(() => {
     startAni();

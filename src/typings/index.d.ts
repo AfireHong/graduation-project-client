@@ -14,12 +14,15 @@ interface userInfo {
   user_avatar: string;
   user_sex: number;
   user_profile: string;
-  user_followers: number;
-  user_following: number;
+  followers: Array;
+  following: Array;
   user_last_login_at: string;
   user_create_at: string;
 }
 
+interface getUserInfoReq {
+  user_acount: string;
+}
 interface userReq {
   nickname?: string;
   acount: string;

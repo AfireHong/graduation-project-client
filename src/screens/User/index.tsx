@@ -7,14 +7,14 @@ import Button from "@/components/Button";
 import Text from "@/components/Text";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
-const Profile: FC<Props> = ({ navigation }) => {
+const Profile: FC<Props> = (props) => {
+  const { navigation } = props;
   const Operate: FC = () => {
     return (
       <View
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
-          marginBottom: 20,
         }}
       >
         <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -27,7 +27,7 @@ const Profile: FC<Props> = ({ navigation }) => {
     );
   };
   return (
-    <User TopTools={Operate}>
+    <User TopTools={Operate} {...props}>
       <View
         style={{
           flexDirection: "row",

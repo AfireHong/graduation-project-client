@@ -24,7 +24,9 @@ const Operate: FC = () => {
   );
 };
 
-const Mine: FC<Props> = ({ navigation }) => {
+const Mine: FC<Props> = (props) => {
+  const { navigation } = props;
+
   const goSetting = () => {
     navigation.navigate("Setting");
   };
@@ -37,9 +39,9 @@ const Mine: FC<Props> = ({ navigation }) => {
 
   useEffect(() => {
     getUserInfo();
-  }, [getUserInfo]);
+  });
   return (
-    <UserInfo TopTools={Operate}>
+    <UserInfo TopTools={Operate} acount={userInfo?.user_acount} {...props}>
       <View style={styles.editInfo}>
         <TouchableOpacity style={styles.editInfoBtn}>
           <Text style={styles.editInfoBtnTxt}>编辑资料</Text>

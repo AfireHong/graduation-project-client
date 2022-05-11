@@ -5,6 +5,7 @@ import WelCome from "@/screens/Welcome";
 import Register from "@/screens/Register";
 import Setting from "@/screens/Setting";
 import User from "@/screens/User";
+import Social from "@/screens/Social";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/typings/navigation";
@@ -52,6 +53,13 @@ const stackConfig = [
       headerShown: false,
     },
   },
+  {
+    name: "Social",
+    component: Social,
+    options: {
+      title: "社交",
+    },
+  },
 ];
 export default function App() {
   return (
@@ -64,31 +72,6 @@ export default function App() {
             options={item.options}
           />
         ))}
-        {/* <Stack.Screen
-          name="Index"
-          component={Root}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Welcome"
-          component={WelCome}
-          options={{
-            headerShown: false,
-            gestureEnabled: false,
-          }}
-        />
-        <Stack.Screen
-          name="Register"
-          component={Register}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{ headerShown: false }}
-        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
