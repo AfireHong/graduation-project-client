@@ -14,8 +14,8 @@ interface userInfo {
   user_avatar: string;
   user_sex: number;
   user_profile: string;
-  followers: Array;
-  following: Array;
+  followersNum: number;
+  followingNum: number;
   user_last_login_at: string;
   user_create_at: string;
 }
@@ -27,4 +27,9 @@ interface userReq {
   nickname?: string;
   acount: string;
   password: string;
+}
+interface followListRsp {
+  nickname: string;
+  followingList: string;
+  followersList: string;
 }

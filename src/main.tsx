@@ -57,7 +57,11 @@ const stackConfig = [
     name: "Social",
     component: Social,
     options: {
-      title: "社交",
+      title: "关注与粉丝",
+      headerStyle: {
+        backgroundColor: "rgb(27,25,31)",
+      },
+      headerTintColor: "#fff",
     },
   },
 ];
@@ -65,8 +69,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {stackConfig.map((item) => (
+        {stackConfig.map((item, index) => (
           <Stack.Screen
+            key={index}
             name={item.name as keyof RootStackParamList}
             component={item.component}
             options={item.options}

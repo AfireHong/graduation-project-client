@@ -42,15 +42,11 @@ const BaseInfo: FC<Props & IbaseInfo> = (props) => {
       <View style={styles.third}>
         <View style={styles.trendView}>
           <TouchableOpacity style={styles.trend} onPress={goSocial}>
-            <Text style={styles.trendNumText}>
-              {userInfo?.following.length}
-            </Text>
+            <Text style={styles.trendNumText}>{userInfo?.followingNum}</Text>
             <Text style={styles.trendDescText}>关注</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.trend} onPress={goSocial}>
-            <Text style={styles.trendNumText}>
-              {userInfo?.followers.length}
-            </Text>
+            <Text style={styles.trendNumText}>{userInfo?.followersNum}</Text>
             <Text style={styles.trendDescText}>粉丝</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.trend}>

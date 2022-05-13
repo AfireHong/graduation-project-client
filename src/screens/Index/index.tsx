@@ -60,10 +60,14 @@ const Index: FC<Props> = ({ navigation }) => {
           }
           return tabItem;
         },
-        tabBarActiveTintColor: "#000000",
+        tabBarActiveTintColor: "#ffffff",
         tabBarInactiveTintColor: "#999",
         tabBarShowLabel: false,
         backBehavior: "history",
+        tabBarStyle: {
+          backgroundColor: "rgb(27,25,31)",
+          borderTopColor: "rgb(27,25,31)",
+        },
       })}
     >
       <Tab.Screen
