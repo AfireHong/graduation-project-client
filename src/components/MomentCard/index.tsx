@@ -1,6 +1,7 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React, { memo, FC, useMemo } from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { colors } from "@/constants/theme";
 
 export interface MomentItem {
   title: string;
@@ -72,7 +73,7 @@ const MomentCard: FC<{ item: MomentItem; userClick: () => void }> = memo(
 
 const styles = StyleSheet.create({
   cardWrap: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.black2,
     marginBottom: 8,
     width: "97%",
   },
@@ -82,6 +83,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: "800",
+    color: "#fff",
   },
   user: {
     flexDirection: "row",

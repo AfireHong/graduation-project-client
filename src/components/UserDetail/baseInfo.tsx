@@ -18,11 +18,9 @@ const BaseInfo: FC<Props & IbaseInfo> = (props) => {
   const goSocial = () => {
     navigation.navigate("Social");
   };
-  console.log(userInfo);
 
   return (
     <View style={styles.baseInfo}>
-      <StatusBar backgroundColor="blue" barStyle="dark-content" />
       <View style={styles.avatar}>
         <View>
           <Image

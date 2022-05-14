@@ -39,7 +39,7 @@ const Mine: FC<Props> = (props) => {
 
   useEffect(() => {
     getUserInfo();
-  });
+  }, [getUserInfo]);
   return (
     <UserInfo TopTools={Operate} acount={userInfo?.user_acount} {...props}>
       <View style={styles.editInfo}>

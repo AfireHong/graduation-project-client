@@ -8,6 +8,8 @@ export const colors = {
   white: "#FFFFFF",
   gray: "#9DA3B4",
   gray2: "#636e72",
+  black2: "rgb(25,25,31)",
+  text: "rgb(174,174,180)",
 };
 
 export const sizes = {

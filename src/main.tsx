@@ -62,6 +62,7 @@ const stackConfig = [
         backgroundColor: "rgb(27,25,31)",
       },
       headerTintColor: "#fff",
+      headerBackTitle: "",
     },
   },
 ];

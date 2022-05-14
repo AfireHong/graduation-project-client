@@ -17,6 +17,7 @@ import Text from "@/components/Text";
 import indexModel from "@/models/index";
 import encryptStr from "@/utlis/encryptStr";
 import { setStorage } from "@/utlis/storage";
+import { CommonActions } from "@react-navigation/native";
 
 const IndexModel = new indexModel();
 
@@ -40,7 +41,12 @@ const Login: FC<Props> = ({ navigation }) => {
     if (res?.success) {
       setStorage("token", res.data.token);
       setStorage("userInfo", res.data.userInfo);
-      navigation.navigate("Index");
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: "Index" }],
+        })
+      );
     } else {
       Toast.show(res?.msg || "登录失败", {
         duration: Toast.durations.SHORT,

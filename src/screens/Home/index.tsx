@@ -88,8 +88,8 @@ const Home: FC<Props> = ({ navigation }) => {
     return <MomentCard item={item} userClick={toUserProfile} />;
   };
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <StatusBar backgroundColor="blue" barStyle="dark-content" />
+    <SafeAreaView style={{ flex: 1, backgroundColor: "black" }}>
+      <StatusBar barStyle="light-content" />
       <View
         style={{
           justifyContent: "center",
@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
   tabText: {
     fontWeight: "800",
     fontSize: 16,
+    color: "white",
   },
   activeTab: {
     borderBottomWidth: 3,
