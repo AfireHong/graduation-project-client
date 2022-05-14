@@ -5,6 +5,7 @@ import React, {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  ScrollView,
 } from "react-native";
 import { FC, useState, memo } from "react";
 import { Props } from "@/typings/navigation";
@@ -76,9 +77,39 @@ const rankList = [
     id: "9",
     keywords: "热门第一条",
   },
+  {
+    id: "10",
+    keywords: "热门第一条",
+  },
+  {
+    id: "11",
+    keywords: "热门第一条",
+  },
+  {
+    id: "12",
+    keywords: "热门第一条",
+  },
+  {
+    id: "13",
+    keywords: "热门第一条",
+  },
 ];
 
 const HotRank: FC = memo(() => {
+  const handleColor = (index: number) => {
+    switch (index) {
+      case 0:
+        return "rgb(238, 113, 132)";
+        break;
+      case 1:
+        return "rgb(243, 178 ,95)";
+        break;
+      case 2:
+        return "rgb(249, 219, 100)";
+      default:
+        return "#fff";
+    }
+  };
   return (
     <View>
       <View
@@ -97,19 +128,28 @@ const HotRank: FC = memo(() => {
         </Text>
       </View>
       <View style={{ paddingHorizontal: 10 }}>
-        {rankList.map((item) => {
+        {rankList.map((item, index) => {
           return (
             <TouchableOpacity
+              key={item.id}
               style={{
                 borderBottomWidth: 1,
                 borderBottomColor: "#292929",
                 paddingVertical: 18,
+                flexDirection: "row",
+                alignItems: "center",
               }}
               activeOpacity={0.9}
             >
+              <Entypo
+                name={"dot-single"}
+                color={handleColor(index)}
+                size={20}
+              />
               <Text
                 style={{
-                  color: colors.text,
+                  color: "#fff",
+                  marginLeft: 4,
                 }}
               >
                 {item.keywords}
@@ -151,54 +191,56 @@ const DiscoverScreen: FC<Props> = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.associative}>
-        <View style={styles.associativeTitle}>
-          <Text
+      <ScrollView>
+        <View style={styles.associative}>
+          <View style={styles.associativeTitle}>
+            <Text
+              style={{
+                color: colors.text,
+                fontSize: 16,
+                fontWeight: "600",
+              }}
+            >
+              猜你想搜
+            </Text>
+            <TouchableOpacity style={styles.switchBtn} activeOpacity={0.8}>
+              <Entypo name={"cycle"} color={"rgb(109,112,121)"} />
+              <Text style={styles.switchText}>换一换</Text>
+            </TouchableOpacity>
+          </View>
+          <View
             style={{
-              color: colors.text,
-              fontSize: 16,
-              fontWeight: "600",
+              width: "100%",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              marginTop: 18,
             }}
           >
-            猜你想搜
-          </Text>
-          <TouchableOpacity style={styles.switchBtn} activeOpacity={0.8}>
-            <Entypo name={"cycle"} color={"rgb(109,112,121)"} />
-            <Text style={styles.switchText}>换一换</Text>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            width: "100%",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            marginTop: 18,
-          }}
-        >
-          {words.map((item) => {
-            return (
-              <TouchableOpacity
-                style={{
-                  width: "50%",
-                  paddingVertical: 8,
-                }}
-                key={item.id}
-                activeOpacity={0.9}
-              >
-                <Text
+            {words.map((item) => {
+              return (
+                <TouchableOpacity
                   style={{
-                    color: colors.text,
-                    fontSize: 16,
+                    width: "50%",
+                    paddingVertical: 8,
                   }}
+                  key={item.id}
+                  activeOpacity={0.9}
                 >
-                  {item.keywords}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
+                  <Text
+                    style={{
+                      color: colors.text,
+                      fontSize: 16,
+                    }}
+                  >
+                    {item.keywords}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
         </View>
-      </View>
-      <HotRank />
+        <HotRank />
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -208,7 +250,7 @@ export default DiscoverScreen;
 const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: "row",
-    height: 36,
+    height: 56,
     width: "100%",
     justifyContent: "space-between",
   },
@@ -217,21 +259,26 @@ const styles = StyleSheet.create({
     width: "80%",
     borderRadius: 20,
     paddingHorizontal: 10,
+    marginBottom: 20,
+    paddingBottom: 20,
   },
   serachInput: {
     color: "#fff",
     height: "100%",
     fontSize: 16,
+    minHeight: 36,
+    paddingLeft: 4,
   },
   searchBtn: {
     backgroundColor: colors.black2,
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 16,
+    height: 36,
     borderRadius: 20,
   },
   associative: {
-    marginTop: 20,
+    // marginTop: 20,
   },
   associativeTitle: {
     flexDirection: "row",
