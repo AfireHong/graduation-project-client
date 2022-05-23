@@ -1,27 +1,42 @@
-import React, {
-  View,
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-} from "react-native";
-import { useLayoutEffect, FC } from "react";
-import { Props } from "@/typings/navigation";
-import AntDesign from "react-native-vector-icons/AntDesign";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React, { FC } from "react";
+import CreateIndex from "./createIndexScreen";
+import ImgPicker from "./imgSelectionScreen";
 
-const CreateScreen: FC<Props> = ({ navigation }) => {
-  const returnStack = () => {
-    navigation.goBack();
-  };
+const createStack = createNativeStackNavigator();
+
+const createStacksConfig = [
+  {
+    name: "createIndex",
+    component: CreateIndex,
+    options: {
+      headerShown: false,
+    },
+  },
+  {
+    name: "imgPicker",
+    component: ImgPicker,
+    options: {
+      headerShown: false,
+    },
+  },
+];
+
+const CreateStacks: FC = () => {
   return (
-    <SafeAreaView style={{ flex: 1, height: "100%" }}>
-      <View>
-        <TouchableOpacity onPress={() => returnStack()}>
-          <AntDesign name={"arrowleft"} size={30} />
-        </TouchableOpacity>
-      </View>
-      <Text>新建</Text>
-    </SafeAreaView>
+    <createStack.Navigator>
+      {createStacksConfig.map((item) => {
+        return (
+          <createStack.Screen
+            key={item.name}
+            name={item.name}
+            component={item.component}
+            options={item.options}
+          />
+        );
+      })}
+    </createStack.Navigator>
   );
 };
 
-export default CreateScreen;
+export default CreateStacks;

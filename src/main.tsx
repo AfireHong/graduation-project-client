@@ -11,7 +11,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/typings/navigation";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-
 const stackConfig = [
   {
     name: "Index",

@@ -75,6 +75,7 @@ const Index: FC<Props> = ({ navigation }) => {
             borderTopColor: "rgb(27,25,31)",
           },
         })}
+        backBehavior={"history"}
       >
         <Tab.Screen
           name="home"
