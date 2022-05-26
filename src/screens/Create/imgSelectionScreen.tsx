@@ -5,10 +5,16 @@ import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { MediaType } from "expo-media-library";
 import { theme } from "@/constants";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ImgPicker() {
+  const navigation = useNavigation();
+
   const onSuccess = (data: any) => {
-    Alert.alert("Done", data.length + "Images selected");
+    // Alert.alert("Done", data.length + "Images selected");
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    navigation.navigate("createIndex", { imgList: data });
   };
 
   const widgetErrors = useMemo(
@@ -30,31 +36,31 @@ export default function ImgPicker() {
       initialLoad: 100,
       assetsType: [MediaType.photo, MediaType.video],
       minSelection: 1,
-      maxSelection: 3,
+      maxSelection: 9,
       portraitCols: 4,
       landscapeCols: 4,
     }),
     []
   );
 
-  const widgetResize = useMemo(
-    () => ({
-      width: 50,
-      compress: 0.7,
-      base64: false,
-      saveTo: "jpeg",
-    }),
-    []
-  );
+  // const widgetResize = useMemo(
+  //   () => ({
+  //     width: 50,
+  //     compress: 0.7,
+  //     base64: false,
+  //     saveTo: "jpeg",
+  //   }),
+  //   []
+  // );
 
   const _textStyle = {
     color: "white",
   };
 
   const _buttonStyle = {
-    backgroundColor: theme.colors.primary,
+    backgroundColor: theme.colors.primary_s,
     height: 30,
-    width: 50,
+    width: 60,
     borderRadius: 20,
   };
 
@@ -65,12 +71,12 @@ export default function ImgPicker() {
         back: "取消",
         selected: "选择",
       },
-      midTextColor: "black",
+      midTextColor: "white",
       minSelection: 1,
       buttonTextStyle: _textStyle,
       buttonStyle: _buttonStyle,
       onBack: () => {
-        console.log("返回");
+        navigation.goBack();
       },
       onSuccess: (e: any) => onSuccess(e),
     }),
@@ -81,7 +87,7 @@ export default function ImgPicker() {
   const widgetStyles = useMemo(
     () => ({
       margin: 2,
-      bgColor: "white",
+      bgColor: theme.colors.black2,
       spinnerColor: "blue",
       widgetWidth: 99,
       videoIcon: {
@@ -94,7 +100,7 @@ export default function ImgPicker() {
         Component: Ionicons,
         iconName: "ios-checkmark-circle-outline",
         color: "white",
-        bg: "#0eb14970",
+        bg: "#7a7a7a6e",
         size: 26,
       },
     }),
@@ -121,5 +127,6 @@ export default function ImgPicker() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: theme.colors.black2,
   },
 });
