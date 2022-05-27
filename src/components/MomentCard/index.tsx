@@ -73,7 +73,7 @@ const MomentCard: FC<{ item: MomentItem; userClick: () => void }> = memo(
 
 const styles = StyleSheet.create({
   cardWrap: {
-    backgroundColor: colors.black2,
+    backgroundColor: "white",
     marginBottom: 8,
     width: "97%",
   },

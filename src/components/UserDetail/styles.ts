@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
   third: {
     marginTop: 20,
     flexDirection: "row",
-
     justifyContent: "space-between",
   },
   trendView: {
@@ -94,7 +93,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   momentDetail: {
-    backgroundColor: "#000",
+    backgroundColor: "#eee",
     height: "100%",
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
@@ -102,7 +101,7 @@ const styles = StyleSheet.create({
   detailTabView: {
     height: 50,
     width: "100%",
-    backgroundColor: "rgb(27,25,31)",
+    backgroundColor: "white",
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     flexDirection: "row",
@@ -110,7 +109,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   tabText: {
-    color: "#fff",
+    color: "black",
     fontSize: 14,
     fontWeight: "800",
     paddingBottom: 4,

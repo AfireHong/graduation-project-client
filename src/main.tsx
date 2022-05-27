@@ -57,10 +57,6 @@ const stackConfig = [
     component: Social,
     options: {
       title: "关注与粉丝",
-      headerStyle: {
-        backgroundColor: "rgb(27,25,31)",
-      },
-      headerTintColor: "#fff",
       headerBackTitle: "",
     },
   },

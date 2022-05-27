@@ -111,7 +111,11 @@ const HotRank: FC = memo(() => {
     }
   };
   return (
-    <View>
+    <View
+      style={{
+        paddingHorizontal: 10,
+      }}
+    >
       <View
         style={{
           marginTop: 14,
@@ -134,7 +138,7 @@ const HotRank: FC = memo(() => {
               key={item.id}
               style={{
                 borderBottomWidth: 1,
-                borderBottomColor: "#292929",
+                borderBottomColor: "#e5e5e5",
                 paddingVertical: 18,
                 flexDirection: "row",
                 alignItems: "center",
@@ -148,7 +152,7 @@ const HotRank: FC = memo(() => {
               />
               <Text
                 style={{
-                  color: "#fff",
+                  color: "black",
                   marginLeft: 4,
                 }}
               >
@@ -169,8 +173,7 @@ const DiscoverScreen: FC<Props> = () => {
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: "black",
-        paddingHorizontal: 20,
+        backgroundColor: "white",
       }}
     >
       <View style={styles.searchContainer}>
@@ -184,7 +187,7 @@ const DiscoverScreen: FC<Props> = () => {
         <TouchableOpacity style={styles.searchBtn}>
           <Text
             style={{
-              color: "#fff",
+              color: "black",
             }}
           >
             搜索
@@ -196,7 +199,7 @@ const DiscoverScreen: FC<Props> = () => {
           <View style={styles.associativeTitle}>
             <Text
               style={{
-                color: colors.text,
+                color: "black",
                 fontSize: 16,
                 fontWeight: "600",
               }}
@@ -228,7 +231,7 @@ const DiscoverScreen: FC<Props> = () => {
                 >
                   <Text
                     style={{
-                      color: colors.text,
+                      color: "black",
                       fontSize: 16,
                     }}
                   >
@@ -253,9 +256,10 @@ const styles = StyleSheet.create({
     height: 56,
     width: "100%",
     justifyContent: "space-between",
+    paddingHorizontal: 10,
   },
   inpurtWrap: {
-    backgroundColor: "rgb(38,38,44)",
+    backgroundColor: "#dbdbdb",
     width: "80%",
     borderRadius: 20,
     paddingHorizontal: 10,
@@ -263,14 +267,14 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   serachInput: {
-    color: "#fff",
+    color: "#1c1c1c",
     height: "100%",
     fontSize: 16,
     minHeight: 36,
     paddingLeft: 4,
   },
   searchBtn: {
-    backgroundColor: colors.black2,
+    backgroundColor: "#e1e1e1",
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 16,
@@ -279,6 +283,7 @@ const styles = StyleSheet.create({
   },
   associative: {
     // marginTop: 20,
+    paddingHorizontal: 10,
   },
   associativeTitle: {
     flexDirection: "row",

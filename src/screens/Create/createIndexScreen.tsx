@@ -40,12 +40,12 @@ const CreateScreen: FC = () => {
       style={{
         flex: 1,
         height: "100%",
-        backgroundColor: theme.colors.black2,
+        backgroundColor: "#fff",
       }}
     >
       <View style={style.top}>
         <TouchableOpacity onPress={() => returnStack()}>
-          <AntDesign name={"arrowleft"} size={30} color={"white"} />
+          <AntDesign name={"arrowleft"} size={30} color={"black"} />
         </TouchableOpacity>
       </View>
       <View
@@ -71,7 +71,7 @@ const CreateScreen: FC = () => {
                   style.imgStyle,
                   {
                     borderWidth: 1,
-                    borderColor: "#343434",
+                    borderColor: "#bebebe",
                     justifyContent: "center",
                     alignItems: "center",
                   },
@@ -80,7 +80,7 @@ const CreateScreen: FC = () => {
                 activeOpacity={0.9}
               >
                 <Text>
-                  <FontAwesome name={"plus"} color={"#fff"} size={20} />
+                  <FontAwesome name={"plus"} color={"#9f9f9f"} size={20} />
                 </Text>
               </TouchableOpacity>
             )}
@@ -97,7 +97,7 @@ const CreateScreen: FC = () => {
           pl={3}
           _input={{
             style: {
-              color: "white",
+              color: "black",
               fontSize: 18,
             },
           }}
@@ -110,18 +110,18 @@ const CreateScreen: FC = () => {
         <TextArea
           mt={4}
           borderWidth={0}
-          bg={"#202020"}
+          bg={"#eaeaea"}
           h={40}
           _focus={{
-            bg: "#353535",
-            borderBottomColor: "#eee",
+            bg: "#dbdbdb",
+            borderBottomColor: "#000000",
             borderBottomWidth: 0,
           }}
           placeholder="输入一段描述吧"
-          color={"white"}
+          color={"black"}
           _input={{
             style: {
-              color: "white",
+              color: "black",
               fontSize: 18,
             },
           }}
@@ -133,7 +133,12 @@ const CreateScreen: FC = () => {
           style={{
             borderRadius: 20,
           }}
-          bg="warmGray.700"
+          bg="warmGray.300"
+          _text={{
+            style: {
+              color: "#545454",
+            },
+          }}
         >
           #添加话题
         </Button>

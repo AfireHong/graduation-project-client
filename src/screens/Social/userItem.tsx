@@ -9,7 +9,7 @@ const UserItem: FC = () => {
           style={styles.avatar}
           source={{ uri: "https://afirehong.cn/i.png" }}
         />
-        <Text style={{ color: "#fff", fontSize: 16, fontWeight: "700" }}>
+        <Text style={{ color: "#363636", fontSize: 16, fontWeight: "700" }}>
           小饼干
         </Text>
       </View>
@@ -22,7 +22,7 @@ export default UserItem;
 const styles = StyleSheet.create({
   constiner: {
     width: "100%",
-    borderBottomColor: "#292929",
+    borderBottomColor: "#e3e3e3",
     paddingBottom: 12,
     borderBottomWidth: 1,
   },

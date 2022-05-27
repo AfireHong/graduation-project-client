@@ -24,11 +24,11 @@ const SocialScreen: FC<Props> = (props) => {
   return (
     <SafeAreaView
       style={{
-        backgroundColor: "rgb(27,25,31)",
+        backgroundColor: "#ffffff",
         height: "100%",
       }}
     >
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="dark-content" />
       <View style={styles.tab}>
         <TouchableOpacity
           onPress={() => setCurrentTab(2)}
@@ -63,7 +63,7 @@ const SocialScreen: FC<Props> = (props) => {
 const styles = StyleSheet.create({
   tabText: {
     fontSize: 14,
-    color: "#fff",
+    color: "#000000",
   },
   tab: {
     marginTop: 10,

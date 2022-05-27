@@ -66,13 +66,13 @@ const Index: FC<Props> = ({ navigation }) => {
             }
             return tabItem;
           },
-          tabBarActiveTintColor: "#ffffff",
+          tabBarActiveTintColor: "#efa5a5",
           tabBarInactiveTintColor: "#999",
           tabBarShowLabel: false,
           backBehavior: "history",
           tabBarStyle: {
-            backgroundColor: "rgb(27,25,31)",
-            borderTopColor: "rgb(27,25,31)",
+            backgroundColor: "#ffffff",
+            borderTopColor: "#dbdbdb",
           },
         })}
         backBehavior={"history"}

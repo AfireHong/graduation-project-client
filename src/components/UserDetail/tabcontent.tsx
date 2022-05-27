@@ -40,7 +40,7 @@ const MomentDetail = () => {
       >
         <Text
           style={{
-            color: "#eee",
+            color: "#3c3c3c",
             marginTop: 40,
           }}
         >

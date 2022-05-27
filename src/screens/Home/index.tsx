@@ -88,13 +88,16 @@ const Home: FC<Props> = ({ navigation }) => {
     return <MomentCard item={item} userClick={toUserProfile} />;
   };
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "black" }}>
-      <StatusBar barStyle="light-content" />
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+      <StatusBar barStyle="dark-content" />
       <View
         style={{
           justifyContent: "center",
           flexDirection: "row",
           marginBottom: 10,
+          paddingBottom: 4,
+          borderColor: "#eee",
+          borderBottomWidth: 1,
         }}
       >
         <TouchableOpacity
@@ -115,17 +118,24 @@ const Home: FC<Props> = ({ navigation }) => {
           <Text style={styles.tabText}>时光</Text>
         </TouchableOpacity>
       </View>
-      <MasonryList
-        keyExtractor={(item: MomentItem): string => item.id}
-        contentContainerStyle={{
-          paddingHorizontal: 10,
-          alignSelf: "stretch",
-          justifyContent: "space-between",
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "#f0f0f0",
         }}
-        numColumns={2}
-        data={data}
-        renderItem={renderItem}
-      />
+      >
+        <MasonryList
+          keyExtractor={(item: MomentItem): string => item.id}
+          contentContainerStyle={{
+            paddingHorizontal: 10,
+            alignSelf: "stretch",
+            justifyContent: "space-between",
+          }}
+          numColumns={2}
+          data={data}
+          renderItem={renderItem}
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -134,7 +144,7 @@ const styles = StyleSheet.create({
   tabText: {
     fontWeight: "800",
     fontSize: 16,
-    color: "white",
+    color: "black",
   },
   activeTab: {
     borderBottomWidth: 3,
