@@ -11,7 +11,7 @@ export interface MomentItem {
   likes: number;
   id: string;
 }
-const MomentCard: FC<{ item: MomentItem; userClick: () => void }> = memo(
+const MomentCard: FC<{ item: MomentItem; userClick?: () => void }> = memo(
   ({ item, userClick }) => {
     const { title, userAvatar, userNickname, coverImg, likes } = item;
     const randomBool = useMemo(() => Math.random() < 0.5, []);
@@ -47,7 +47,10 @@ const MomentCard: FC<{ item: MomentItem; userClick: () => void }> = memo(
                   marginLeft: 4,
                   fontSize: 12,
                   color: "#7f7f7f",
+                  width: 70,
                 }}
+                numberOfLines={1}
+                ellipsizeMode={"tail"}
               >
                 {userNickname}
               </Text>

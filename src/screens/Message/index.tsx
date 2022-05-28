@@ -1,18 +1,35 @@
-import React, {
-  View,
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-} from "react-native";
-import { FC } from "react";
-import { Props } from "@/typings/navigation";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React, { FC } from "react";
+import MessageScreen from "./Message";
 
-const MessageScreen: FC<Props> = () => {
+const messageStack = createNativeStackNavigator();
+
+const createStacksConfig = [
+  {
+    name: "messageIndex",
+    component: MessageScreen,
+    options: {
+      title: "消息",
+      headerBackTitle: "",
+    },
+  },
+];
+
+const MessageStacks: FC = () => {
   return (
-    <SafeAreaView style={{ flex: 1, height: "100%" }}>
-      <Text>消息</Text>
-    </SafeAreaView>
+    <messageStack.Navigator>
+      {createStacksConfig.map((item) => {
+        return (
+          <messageStack.Screen
+            key={item.name}
+            name={item.name}
+            component={item.component}
+            options={item.options}
+          />
+        );
+      })}
+    </messageStack.Navigator>
   );
 };
 
-export default MessageScreen;
+export default MessageStacks;

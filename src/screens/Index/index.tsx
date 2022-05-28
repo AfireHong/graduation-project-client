@@ -66,7 +66,7 @@ const Index: FC<Props> = ({ navigation }) => {
             }
             return tabItem;
           },
-          tabBarActiveTintColor: "#efa5a5",
+          tabBarActiveTintColor: "#000000",
           tabBarInactiveTintColor: "#999",
           tabBarShowLabel: false,
           backBehavior: "history",
@@ -96,6 +96,7 @@ const Index: FC<Props> = ({ navigation }) => {
           component={Create}
           options={{
             headerShown: false,
+            unmountOnBlur: true,
             tabBarStyle: { display: "none" },
           }}
         />

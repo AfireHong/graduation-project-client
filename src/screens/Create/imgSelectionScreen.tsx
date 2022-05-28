@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { View, StyleSheet, SafeAreaView, Alert } from "react-native";
+import { View, StyleSheet, SafeAreaView } from "react-native";
 import { AssetsSelector } from "expo-images-picker";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -54,11 +54,11 @@ export default function ImgPicker() {
   // );
 
   const _textStyle = {
-    color: "white",
+    color: "#dcdcdc",
   };
 
   const _buttonStyle = {
-    backgroundColor: theme.colors.primary_s,
+    backgroundColor: theme.colors.primary,
     height: 30,
     width: 60,
     borderRadius: 20,
@@ -71,7 +71,7 @@ export default function ImgPicker() {
         back: "取消",
         selected: "选择",
       },
-      midTextColor: "white",
+      midTextColor: "black",
       minSelection: 1,
       buttonTextStyle: _textStyle,
       buttonStyle: _buttonStyle,
@@ -87,7 +87,7 @@ export default function ImgPicker() {
   const widgetStyles = useMemo(
     () => ({
       margin: 2,
-      bgColor: theme.colors.black2,
+      bgColor: "white",
       spinnerColor: "blue",
       widgetWidth: 99,
       videoIcon: {
@@ -127,6 +127,6 @@ export default function ImgPicker() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.black2,
+    backgroundColor: "white",
   },
 });
