@@ -2,6 +2,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React, { memo, FC, useMemo } from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { colors } from "@/constants/theme";
+import { useNavigation } from "@react-navigation/native";
 
 export interface MomentItem {
   title: string;
@@ -13,22 +14,33 @@ export interface MomentItem {
 }
 const MomentCard: FC<{ item: MomentItem; userClick?: () => void }> = memo(
   ({ item, userClick }) => {
+    const navigation = useNavigation();
     const { title, userAvatar, userNickname, coverImg, likes } = item;
     const randomBool = useMemo(() => Math.random() < 0.5, []);
+    const toMoment = () => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      navigation.navigate("Moment");
+    };
     return (
       <View style={styles.cardWrap}>
-        <Image
-          source={{
-            uri: coverImg,
-          }}
-          style={{
-            height: randomBool ? 150 : 280,
-            alignSelf: "stretch",
-          }}
-          resizeMode="cover"
-        />
+        <TouchableOpacity onPress={() => toMoment()}>
+          <Image
+            source={{
+              uri: coverImg,
+            }}
+            style={{
+              height: randomBool ? 150 : 280,
+              alignSelf: "stretch",
+            }}
+            resizeMode="cover"
+          />
+        </TouchableOpacity>
+
         <View style={styles.profile}>
-          <Text style={styles.title}>{title}</Text>
+          <TouchableOpacity>
+            <Text style={styles.title}>{title}</Text>
+          </TouchableOpacity>
           <View style={styles.info}>
             <TouchableOpacity style={styles.user} onPress={userClick}>
               <Image
@@ -86,7 +98,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: "800",
-    color: "#fff",
+    color: "#000000",
   },
   user: {
     flexDirection: "row",

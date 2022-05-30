@@ -6,6 +6,7 @@ import Register from "@/screens/Register";
 import Setting from "@/screens/Setting";
 import User from "@/screens/User";
 import Social from "@/screens/Social";
+import Moment from "./screens/Moment";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/typings/navigation";
@@ -58,6 +59,13 @@ const stackConfig = [
     options: {
       title: "关注与粉丝",
       headerBackTitle: "",
+    },
+  },
+  {
+    name: "Moment",
+    component: Moment,
+    options: {
+      headerShown: false,
     },
   },
 ];

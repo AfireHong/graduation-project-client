@@ -33,3 +33,5 @@ interface followListRsp {
   followingList: string;
   followersList: string;
 }
+
+declare module "react-native-lightbox";
