@@ -45,6 +45,16 @@ const MessageScreen: FC<Props> = () => {
             <FontAwesome name={"user"} size={24} color={"rgb(77,132,246)"} />
           </Box>
         </Box>
+        <Box
+          style={styles.empty}
+          _text={{
+            style: {
+              fontSize: 18,
+            },
+          }}
+        >
+          暂无消息内容
+        </Box>
       </Box>
     </SafeAreaView>
   );
@@ -57,6 +67,11 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     alignItems: "center",
     justifyContent: "center",
+  },
+  empty: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20,
   },
 });
 

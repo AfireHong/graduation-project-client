@@ -32,7 +32,7 @@ export default function ImgPicker() {
 
   const widgetSettings = useMemo(
     () => ({
-      getImageMetaData: false, // true might perform slower results but gives meta data and absolute path for ios users
+      getImageMetaData: true, // true might perform slower results but gives meta data and absolute path for ios users
       initialLoad: 100,
       assetsType: [MediaType.photo, MediaType.video],
       minSelection: 1,

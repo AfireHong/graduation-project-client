@@ -21,6 +21,7 @@ import {
   Modal,
   useToast,
 } from "native-base";
+import uploadImg from "@/utlis/uploadImg";
 
 const CreateScreen: FC = () => {
   const [images, setImages] = useState<Record<string, string>[]>([]);
@@ -57,7 +58,13 @@ const CreateScreen: FC = () => {
     navigation.navigate("imgPicker");
   };
 
-  const submit = () => {
+  const submit = async () => {
+    if (!images.length)
+      return Toast.show({
+        description: "请挑选好看的图片",
+        placement: "top",
+      });
+    const res = await uploadImg(images);
     Toast.show({
       description: "发布成功！",
       placement: "top",
@@ -67,7 +74,7 @@ const CreateScreen: FC = () => {
   useEffect(() => {
     const imgs = (route?.params as Record<string, any>)?.imgList || [];
     if (imgs) {
-      console.log(imgs);
+      console.log(imgs.length);
       setImages(imgs);
     } else {
       setImages([]);
