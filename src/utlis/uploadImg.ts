@@ -11,8 +11,6 @@ const uploadImg = async (images: Record<string, string>[]) => {
     //@ts-ignore
     formData.append("files", photo);
   }
-  console.log(formData);
-
   const token = await getStorage("token");
   const resNoJson = await fetch("http://localhost:7001/user/uploadImage", {
     body: formData,
@@ -22,9 +20,12 @@ const uploadImg = async (images: Record<string, string>[]) => {
       Authorization: "Bearer " + token,
     },
   });
-  // .then((response) => response.json())
-  const res = resNoJson.json();
-  console.log(res);
+  const res = await resNoJson.json();
+  if (res.success) {
+    return res.data;
+  } else {
+    throw Error("图片上传失败");
+  }
 };
 
 export default uploadImg;

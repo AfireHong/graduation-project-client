@@ -22,7 +22,9 @@ import {
   useToast,
 } from "native-base";
 import uploadImg from "@/utlis/uploadImg";
+import moment from "@/models/moment";
 
+const momentModel = new moment();
 const CreateScreen: FC = () => {
   const [images, setImages] = useState<Record<string, string>[]>([]);
   const [showModal, setShowModal] = useState(false);
@@ -58,17 +60,39 @@ const CreateScreen: FC = () => {
     navigation.navigate("imgPicker");
   };
 
+  // 内容
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const submit = async () => {
     if (!images.length)
       return Toast.show({
         description: "请挑选好看的图片",
         placement: "top",
       });
-    const res = await uploadImg(images);
-    Toast.show({
-      description: "发布成功！",
-      placement: "top",
-    });
+    try {
+      const imgList = (await uploadImg(images)) as string[];
+      console.log(imgList);
+      const params = {
+        moment_title: title,
+        moment_content: content,
+        moment_images: imgList,
+      };
+      const res = await momentModel.create(params);
+      console.log(res);
+
+      if (res?.success) {
+        Toast.show({
+          description: "发布成功",
+          placement: "top",
+        });
+        navigation.goBack();
+      }
+    } catch (e) {
+      Toast.show({
+        description: (e as any).message,
+        placement: "top",
+      });
+    }
   };
 
   useEffect(() => {
@@ -174,10 +198,14 @@ const CreateScreen: FC = () => {
             _focus={{
               borderBottomColor: "#eee",
             }}
+            value={title}
+            onChangeText={(text) => setTitle(text)}
             variant="underlined"
             placeholder="输入一段标题吧"
           />
           <TextArea
+            value={content}
+            onChangeText={(text) => setContent(text)}
             mt={4}
             borderWidth={0}
             bg={"#eaeaea"}

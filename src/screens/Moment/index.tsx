@@ -20,7 +20,7 @@ const commentList = [
     user_id: "1",
     user_nickname: "评论用户1",
     user_avatar:
-      "https://sns-avatar-qc.xhscdn.com/avatar/6187dc6fd4a81ef0b1954388.jpg?imageView2/2/w/80/format/jpg",
+      "https://sns-avatar-qc.xhscdn.com/avatar/622a231bc357ab2eb1ec3556.jpg?imageView2/2/w/80/format/jpg",
     content:
       "评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容",
     create_time: "2022-05-30",
@@ -104,7 +104,7 @@ const MomentScreen: FC<Props> = () => {
               >
                 <Image
                   source={{
-                    uri: "https://sns-avatar-qc.xhscdn.com/avatar/6187dc6fd4a81ef0b1954388.jpg?imageView2/2/w/80/format/jpg",
+                    uri: "https://sns-avatar-qc.xhscdn.com/avatar/622a231bc357ab2eb1ec3556.jpg?imageView2/2/w/80/format/jpg",
                   }}
                   style={{
                     width: 34,

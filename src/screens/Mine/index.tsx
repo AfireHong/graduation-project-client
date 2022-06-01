@@ -6,6 +6,7 @@ import { Props } from "@/typings/navigation";
 import UserInfo from "@/components/UserDetail/index";
 import styles from "@/components/UserDetail/styles";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+
 const Operate: FC = () => {
   return (
     <View
