@@ -7,6 +7,6 @@ export type RootStackParamList = {
   Setting: undefined;
   User: undefined;
   Social: undefined;
-  Moment: undefined;
+  Moment: { id: string };
 };
 export type Props = NativeStackScreenProps<RootStackParamList>;

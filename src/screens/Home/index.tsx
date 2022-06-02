@@ -22,6 +22,7 @@ const data: MomentItem[] = [
     coverImg:
       "http://sns-img-qc.xhscdn.com/01024i01kotqbr6vhi90116f7uy0yea8gw?imageView2/2/w/540/format/jpg/q/75",
     likes: 12031,
+    userId: "1",
   },
   {
     id: "2",
@@ -32,6 +33,7 @@ const data: MomentItem[] = [
     coverImg:
       "http://sns-img-qc.xhscdn.com/01024301khrv9nhgt0b0111ldbxdo0agis?imageView2/2/w/540/format/jpg/q/75",
     likes: 12031,
+    userId: "1",
   },
   {
     id: "3",
@@ -42,6 +44,7 @@ const data: MomentItem[] = [
     coverImg:
       "http://sns-img-qc.xhscdn.com/01024g016jpdu2ehcgt0112ququ0lux3sn?imageView2/2/w/540/format/jpg/q/75",
     likes: 12031,
+    userId: "1",
   },
   {
     id: "4",
@@ -52,6 +55,7 @@ const data: MomentItem[] = [
     coverImg:
       "http://sns-img-qc.xhscdn.com/01024b01kg74u8l7lhg0101nd728bd4rld?imageView2/2/w/1080/format/webp",
     likes: 12031,
+    userId: "1",
   },
   {
     id: "5",
@@ -62,6 +66,7 @@ const data: MomentItem[] = [
     coverImg:
       "http://sns-img-qc.xhscdn.com/01024i01kotqbr6vhi90116f7uy0yea8gw?imageView2/2/w/540/format/jpg/q/75",
     likes: 12031,
+    userId: "1",
   },
   {
     id: "6",
@@ -72,6 +77,7 @@ const data: MomentItem[] = [
     coverImg:
       "http://sns-img-qc.xhscdn.com/01024i01kotqbr6vhi90116f7uy0yea8gw?imageView2/2/w/540/format/jpg/q/75",
     likes: 12031,
+    userId: "1",
   },
 ];
 const Home: FC<Props> = ({ navigation }) => {

@@ -11,16 +11,19 @@ export interface MomentItem {
   coverImg: string;
   likes: number;
   id: string;
+  userId: string;
 }
 const MomentCard: FC<{ item: MomentItem; userClick?: () => void }> = memo(
   ({ item, userClick }) => {
     const navigation = useNavigation();
-    const { title, userAvatar, userNickname, coverImg, likes } = item;
+    const { title, userAvatar, userNickname, coverImg, likes, id } = item;
     const randomBool = useMemo(() => Math.random() < 0.5, []);
     const toMoment = () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
-      navigation.navigate("Moment");
+      navigation.navigate("Moment", {
+        id,
+      });
     };
     return (
       <View style={styles.cardWrap}>

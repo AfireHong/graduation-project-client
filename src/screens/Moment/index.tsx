@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect, useCallback } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -9,11 +9,18 @@ import {
   Dimensions,
 } from "react-native";
 import { Box, Text, Button, Input, Modal, TextArea } from "native-base";
-import { Props } from "@/typings/navigation";
+import { Props, RootStackParamList } from "@/typings/navigation";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { ImageSwiper } from "@/components/Swiper";
+import type { RouteProp } from "@react-navigation/native";
+import Moment from "@/models/moment";
+import { getMomentRsp } from "@/models/moment";
+import moment from "moment";
+const momentModel = new Moment();
+
+type momentProps = RouteProp<RootStackParamList, "Moment">;
 
 const commentList = [
   {
@@ -64,9 +71,22 @@ const CommentItem: FC<commentProps> = (props) => {
   );
 };
 
-const MomentScreen: FC<Props> = () => {
+const MomentScreen: FC<Props & { id: string }> = () => {
   const navigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
+  const [momentInfo, setMomentInfo] = useState<getMomentRsp>();
+  const route = useRoute<momentProps>();
+  console.log("id:", route.params.id);
+  const getMoment = useCallback(async () => {
+    const res = await momentModel.getMoment(route.params.id);
+    console.log(res);
+    if (res?.success) {
+      setMomentInfo(res.data);
+    }
+  }, [route]);
+  useEffect(() => {
+    getMoment();
+  }, [getMoment]);
 
   const showKeyboard = () => {
     setShowModal(true);
@@ -104,7 +124,7 @@ const MomentScreen: FC<Props> = () => {
               >
                 <Image
                   source={{
-                    uri: "https://sns-avatar-qc.xhscdn.com/avatar/622a231bc357ab2eb1ec3556.jpg?imageView2/2/w/80/format/jpg",
+                    uri: momentInfo?.userInfo.avatar,
                   }}
                   style={{
                     width: 34,
@@ -114,7 +134,7 @@ const MomentScreen: FC<Props> = () => {
                   resizeMode="cover"
                 />
                 <Text ml={2} color={"black"} fontWeight={400} fontSize={16}>
-                  用户昵称
+                  {momentInfo?.userInfo.nickname}
                 </Text>
               </TouchableOpacity>
             </Box>
@@ -147,22 +167,18 @@ const MomentScreen: FC<Props> = () => {
             </Box>
           </Box>
           <Box style={styles.imgs}>
-            <ImageSwiper
-              images={[
-                "http://sns-img-qc.xhscdn.com/01024i01kotqbr6vhi90116f7uy0yea8gw?imageView2/2/w/540/format/jpg/q/75",
-                "http://sns-img-qc.xhscdn.com/01024b01kg74u8l7lhg0101nd728bd4rld?imageView2/2/w/1080/format/webp",
-              ]}
-            />
+            <ImageSwiper images={momentInfo?.moment_images || []} />
           </Box>
           <Box p={4}>
             <Text fontSize={18} fontWeight={600}>
-              标题内容标题内容标题内容标题内容标题内容
+              {momentInfo?.moment_title}
             </Text>
-            <Text fontSize={16}>
-              主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容主体内容
-            </Text>
+            <Text fontSize={16}>{momentInfo?.moment_content}</Text>
             <Text fontSize={13} mt={10} color={"#868686"}>
-              发表于 2022-05-05 19:23
+              发表于{" "}
+              {moment(Number(momentInfo?.moment_create_at))
+                .locale("zh-cn")
+                .format("YYYY-MM-DD HH:mm:ss a")}
             </Text>
           </Box>
           <Box p={4}>
