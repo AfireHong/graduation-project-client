@@ -7,11 +7,7 @@ type createReq = {
 type getUserMomentReq = {
   user_id?: string;
 };
-type userBaseInfo = {
-  user_id: string;
-  nickname: string;
-  avatar: string;
-};
+
 export interface getMomentRsp {
   moment_id: string;
   moment_title: string;

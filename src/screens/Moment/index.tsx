@@ -5,10 +5,9 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  KeyboardAvoidingView,
   Dimensions,
 } from "react-native";
-import { Box, Text, Button, Input, Modal, TextArea } from "native-base";
+import { Box, Text, Button, Toast, Modal, TextArea } from "native-base";
 import { Props, RootStackParamList } from "@/typings/navigation";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -17,22 +16,13 @@ import { ImageSwiper } from "@/components/Swiper";
 import type { RouteProp } from "@react-navigation/native";
 import Moment from "@/models/moment";
 import { getMomentRsp } from "@/models/moment";
+import { getStorage } from "@/utlis/storage";
+import CommentModel, { comentListRsp } from "@/models/comment";
 import moment from "moment";
 const momentModel = new Moment();
+const commentModel = new CommentModel();
 
 type momentProps = RouteProp<RootStackParamList, "Moment">;
-
-const commentList = [
-  {
-    user_id: "1",
-    user_nickname: "评论用户1",
-    user_avatar:
-      "https://sns-avatar-qc.xhscdn.com/avatar/622a231bc357ab2eb1ec3556.jpg?imageView2/2/w/80/format/jpg",
-    content:
-      "评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容",
-    create_time: "2022-05-30",
-  },
-];
 
 type commentProps = {
   user_avatar: string;
@@ -44,7 +34,7 @@ type commentProps = {
 const CommentItem: FC<commentProps> = (props) => {
   const { user_avatar, user_nickname, content, create_time } = props;
   return (
-    <Box flexDirection={"row"}>
+    <Box flexDirection={"row"} mb={2}>
       <Box mr={2}>
         <Image
           style={{
@@ -64,19 +54,53 @@ const CommentItem: FC<commentProps> = (props) => {
           {content}
         </Text>
         <Text color={"#878686"} fontSize={12}>
-          {create_time}
+          {moment(Number(create_time)).format("YYYY-MM-DD HH:mm:ss a")}
         </Text>
       </Box>
     </Box>
   );
 };
 
+const useComment = (moment_id: string) => {
+  const [comment, setComment] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [commentList, setCommentList] = useState<comentListRsp[]>([]);
+  const publishComment = async (parent_id = "0") => {
+    const res = await commentModel.create(comment, parent_id, moment_id);
+    if (res?.success) {
+      setShowModal(false);
+      getComment();
+      setComment("");
+      Toast.show({
+        description: "评论成功",
+      });
+    }
+  };
+  const getComment = useCallback(async () => {
+    const res = await commentModel.list(moment_id);
+    if (res?.success) {
+      setCommentList(res.data);
+    }
+  }, [moment_id]);
+
+  useEffect(() => {
+    getComment();
+  }, [getComment]);
+  return {
+    showModal,
+    comment,
+    commentList,
+    setShowModal,
+    setComment,
+    publishComment,
+    getComment,
+  };
+};
+
 const MomentScreen: FC<Props & { id: string }> = () => {
   const navigation = useNavigation();
-  const [showModal, setShowModal] = useState(false);
   const [momentInfo, setMomentInfo] = useState<getMomentRsp>();
   const route = useRoute<momentProps>();
-  console.log("id:", route.params.id);
   const getMoment = useCallback(async () => {
     const res = await momentModel.getMoment(route.params.id);
     console.log(res);
@@ -84,22 +108,29 @@ const MomentScreen: FC<Props & { id: string }> = () => {
       setMomentInfo(res.data);
     }
   }, [route]);
+  const [userInfo, setUserInfo] = useState<userInfo>();
+  const getUserInfo = useCallback(async () => {
+    const info = await getStorage("userInfo");
+    setUserInfo(info);
+  }, []);
+
+  const {
+    showModal,
+    comment,
+    commentList,
+    setShowModal,
+    setComment,
+    publishComment,
+  } = useComment(route.params.id);
   useEffect(() => {
     getMoment();
-  }, [getMoment]);
+    getUserInfo();
+  }, [getMoment, getUserInfo]);
 
   const showKeyboard = () => {
     setShowModal(true);
   };
   return (
-    // <KeyboardAvoidingView
-    //   style={{
-    //     flex: 1,
-    //     justifyContent: "center",
-    //   }}
-    //   behavior="padding"
-    // >
-
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <ScrollView>
         <Box bg={"#fff"}>
@@ -182,11 +213,11 @@ const MomentScreen: FC<Props & { id: string }> = () => {
             </Text>
           </Box>
           <Box p={4}>
-            <Text>共10条评论</Text>
+            <Text>共{commentList.length}条评论</Text>
             <Box mt={3} flexDirection={"row"}>
               <Image
                 source={{
-                  uri: "https://sns-avatar-qc.xhscdn.com/avatar/6187dc6fd4a81ef0b1954388.jpg?imageView2/2/w/80/format/jpg",
+                  uri: userInfo?.user_avatar,
                 }}
                 style={{
                   width: 34,
@@ -221,17 +252,20 @@ const MomentScreen: FC<Props & { id: string }> = () => {
           </Box>
           {/* 评论列表 */}
           <Box pl={4} pr={4} pt={2}>
-            {commentList.map((item) => {
-              return (
-                <CommentItem
-                  user_nickname={item.user_nickname}
-                  content={item.content}
-                  user_avatar={item.user_avatar}
-                  user_id={item.user_id}
-                  create_time={item.create_time}
-                />
-              );
-            })}
+            {commentList.length > 0
+              ? commentList.map((item) => {
+                  return (
+                    <CommentItem
+                      user_nickname={item.userInfo.nickname}
+                      content={item.content || ""}
+                      user_avatar={item.userInfo.avatar}
+                      user_id={item.userInfo.user_id}
+                      create_time={item.create_at}
+                    />
+                  );
+                })
+              : "暂无评论"}
+            {}
           </Box>
         </Box>
       </ScrollView>
@@ -250,6 +284,8 @@ const MomentScreen: FC<Props & { id: string }> = () => {
               borderBottomColor: "#000000",
               borderBottomWidth: 0,
             }}
+            value={comment}
+            onChangeText={(text) => setComment(text)}
             placeholder="说说你的看法吧"
             color={"black"}
             _input={{
@@ -260,12 +296,7 @@ const MomentScreen: FC<Props & { id: string }> = () => {
             }}
           />
           <Modal.Footer>
-            <Button
-              width={"100%"}
-              onPress={() => {
-                setShowModal(false);
-              }}
-            >
+            <Button width={"100%"} onPress={() => publishComment()}>
               发布
             </Button>
           </Modal.Footer>

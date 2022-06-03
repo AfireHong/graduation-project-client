@@ -33,5 +33,9 @@ interface followListRsp {
   followingList: string;
   followersList: string;
 }
-
+type userBaseInfo = {
+  user_id: string;
+  nickname: string;
+  avatar: string;
+};
 declare module "react-native-lightbox";
