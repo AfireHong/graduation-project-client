@@ -21,6 +21,15 @@ export interface getMomentRsp {
   moment_is_delete: number;
   userInfo: userBaseInfo;
 }
+interface searchMomentReq {
+  keywords: string;
+  pageSize: number;
+  pageIndex: number;
+}
+interface searchMomentRsp {
+  list: getMomentRsp[];
+  count: number;
+}
 export default class moment extends HTTP {
   create(data: createReq) {
     return this.fetchData<{ moment_id: string }>(
@@ -34,5 +43,10 @@ export default class moment extends HTTP {
   }
   getMoment(moment_id: string) {
     return this.fetchData<getMomentRsp>("/moment", { moment_id }, "get");
+  }
+  search(data: searchMomentReq) {
+    console.log(data);
+
+    return this.fetchData<searchMomentRsp>("/moment/search", data, "get");
   }
 }

@@ -2,8 +2,13 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { FC } from "react";
 import DiscoverScreen from "./discover";
 import SearchResultScreen from "./searchResult";
-
-const DiscoverStack = createNativeStackNavigator();
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+export type DiscoverStackParamList = {
+  discoverIndex: undefined;
+  searchResult: { param: string };
+};
+export type DiscoverProps = NativeStackScreenProps<DiscoverStackParamList>;
+const DiscoverStack = createNativeStackNavigator<DiscoverStackParamList>();
 
 const DiscoverConfig = [
   {
@@ -29,7 +34,7 @@ const DiscoverStacks: FC = () => {
         return (
           <DiscoverStack.Screen
             key={item.name}
-            name={item.name}
+            name={item.name as keyof DiscoverStackParamList}
             component={item.component}
             options={item.options}
           />

@@ -38,4 +38,9 @@ type userBaseInfo = {
   nickname: string;
   avatar: string;
 };
+
+type pageInfoI = {
+  pageSize: number;
+  pageIndex: number;
+};
 declare module "react-native-lightbox";

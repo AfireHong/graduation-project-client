@@ -169,7 +169,9 @@ const HotRank: FC = memo(() => {
 const DiscoverScreen: FC<Props> = ({ navigation }) => {
   const [searchStr, setSearchStr] = useState("");
   const searchHandle = () => {
-    navigation.navigate("searchResult");
+    navigation.navigate("searchResult", {
+      param: searchStr,
+    });
   };
   return (
     <SafeAreaView
