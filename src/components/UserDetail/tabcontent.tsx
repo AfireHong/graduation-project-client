@@ -1,15 +1,21 @@
-import React, { useState, ReactElement, useCallback, useEffect } from "react";
+import React, {
+  useState,
+  ReactElement,
+  useCallback,
+  useEffect,
+  FC,
+} from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import styles from "./styles";
 import MasonryList from "@react-native-seoul/masonry-list";
 import MomentCard from "@/components/MomentCard";
 import { MomentItem } from "@/components/MomentCard";
-import moment from "@/models/moment";
+import moment, { getMomentRsp } from "@/models/moment";
 import { Box } from "native-base";
 
 const MomentModel = new moment();
 
-const MomentDetail = () => {
+const MomentDetail: FC<{ user_id?: string }> = ({ user_id }) => {
   const [curTab, setCurTab] = useState(0);
   const [userMoment, setUserMoment] = useState<MomentItem[]>([]);
   const tabs = [
@@ -27,7 +33,11 @@ const MomentDetail = () => {
     },
   ];
   const getMyMoment = useCallback(async () => {
-    const res = await MomentModel.getUserMoment();
+    let res: commonRsp<getMomentRsp[]> | undefined;
+    if (user_id) res = await MomentModel.getUserMoment({ user_id });
+    else res = await MomentModel.getUserMoment();
+    console.log(user_id);
+
     if (res?.success) {
       const momentList: MomentItem[] = [];
       res.data.forEach((item) => {
@@ -44,7 +54,7 @@ const MomentDetail = () => {
       });
       setUserMoment(momentList);
     }
-  }, []);
+  }, [user_id]);
 
   useEffect(() => {
     getMyMoment();

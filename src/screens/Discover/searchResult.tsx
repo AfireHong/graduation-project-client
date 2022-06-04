@@ -12,8 +12,10 @@ import { DiscoverStackParamList } from "./index";
 import type { RouteProp } from "@react-navigation/native";
 import { MomentItem } from "@/components/MomentCard";
 import MomentModel from "@/models/moment";
+import UserModel from "@/models/user";
 
 const momentModel = new MomentModel();
+const userModel = new UserModel();
 
 type searchResultProp = RouteProp<DiscoverStackParamList, "searchResult">;
 
@@ -53,12 +55,34 @@ const useMoment = () => {
     getMoment,
   };
 };
+const useUser = () => {
+  const [userList, setUserList] = useState<userBaseInfo[]>([]);
+  const [pageInfo, setPageInfo] = useState<pageInfoI>({
+    pageIndex: 1,
+    pageSize: 10,
+  });
 
+  const getUserList = useCallback(
+    async (keywords) => {
+      const res = await userModel.search({
+        keywords,
+        ...pageInfo,
+      });
+      if (res?.success) {
+        setUserList(res.data.rows);
+      }
+    },
+    [pageInfo]
+  );
+  return { userList, getUserList };
+};
 const SearchResult: FC = () => {
   const navigation = useNavigation();
   const route = useRoute<searchResultProp>();
   const [searchParam, setSearchParam] = useState(route.params.param);
   const { momentList, getMoment } = useMoment();
+  const { userList, getUserList } = useUser();
+  const [index, setIndex] = useState(0);
   useEffect(() => {
     getMoment(searchParam);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -68,9 +92,16 @@ const SearchResult: FC = () => {
       tabBarStyle: { display: "none" },
     });
   });
-
+  const tabchange = (i: number) => {
+    setIndex(i);
+    btnClick();
+  };
   const btnClick = () => {
-    getMoment(searchParam);
+    if (index === 0) {
+      getMoment(searchParam);
+    } else {
+      getUserList(searchParam);
+    }
   };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
@@ -109,7 +140,11 @@ const SearchResult: FC = () => {
         </Button>
       </Box>
       <Box flex={1}>
-        <TabViewComponent momentList={momentList} />
+        <TabViewComponent
+          tabChange={tabchange}
+          userList={userList}
+          momentList={momentList}
+        />
       </Box>
     </SafeAreaView>
   );

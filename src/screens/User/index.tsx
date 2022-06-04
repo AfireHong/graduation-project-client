@@ -1,14 +1,19 @@
 import React, { FC } from "react";
 import User from "@/components/UserDetail";
 import { View, TouchableOpacity } from "react-native";
-import { Props } from "@/typings/navigation";
+import { Props, RootStackParamList } from "@/typings/navigation";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Button from "@/components/Button";
 import Text from "@/components/Text";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { useRoute, RouteProp } from "@react-navigation/native";
+
+type userProps = RouteProp<RootStackParamList, "User">;
 
 const Profile: FC<Props> = (props) => {
   const { navigation } = props;
+  const route = useRoute<userProps>();
+
   const Operate: FC = () => {
     return (
       <View
@@ -27,7 +32,7 @@ const Profile: FC<Props> = (props) => {
     );
   };
   return (
-    <User TopTools={Operate} {...props}>
+    <User TopTools={Operate} {...props} id={route.params.id}>
       <View
         style={{
           flexDirection: "row",

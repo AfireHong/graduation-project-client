@@ -5,7 +5,7 @@ export type RootStackParamList = {
   Welcome: undefined;
   Register: undefined;
   Setting: undefined;
-  User: undefined;
+  User: { id: string };
   Social: undefined;
   Moment: { id: string };
 };

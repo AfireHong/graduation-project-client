@@ -8,17 +8,22 @@ import user from "@/models/user";
 
 const UserModel = new user();
 
-const User: FC<{ TopTools?: FC; acount?: string } & Props> = (props) => {
-  const { TopTools, acount } = props;
+const User: FC<{ TopTools?: FC; acount?: string; id?: string } & Props> = (
+  props
+) => {
+  const { TopTools, acount, id } = props;
   const [userInfo, setUserInfo] = useState<userInfo>();
   const getUserInfo = useCallback(async () => {
     const res = await UserModel.userInfo({
       user_acount: acount as string,
+      id: id as string,
     });
     if (res?.success) {
+      console.log(res);
+
       setUserInfo(res.data);
     }
-  }, [acount]);
+  }, [acount, id]);
 
   useEffect(() => {
     getUserInfo();

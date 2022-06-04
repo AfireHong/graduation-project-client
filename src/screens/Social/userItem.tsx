@@ -1,18 +1,41 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { FC } from "react";
-import { StyleSheet, View, Image, Text } from "react-native";
+import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-const UserItem: FC = () => {
+interface userItemProps {
+  avatar: string;
+  nickname: string;
+  user_id: string;
+  Operate?: FC;
+}
+
+const UserItem: FC<userItemProps> = ({
+  avatar,
+  nickname,
+  user_id,
+  Operate,
+}) => {
+  const navigation = useNavigation();
+  const itemClick = () => {
+    //@ts-ignore
+    navigation.navigate("User", {
+      id: user_id,
+    });
+  };
   return (
     <View style={styles.constiner}>
-      <View style={styles.user}>
-        <Image
-          style={styles.avatar}
-          source={{ uri: "https://afirehong.cn/i.png" }}
-        />
+      <TouchableOpacity
+        onPress={() => itemClick()}
+        style={styles.user}
+        activeOpacity={0.8}
+      >
+        <Image style={styles.avatar} source={{ uri: avatar }} />
         <Text style={{ color: "#363636", fontSize: 16, fontWeight: "700" }}>
-          小饼干
+          {nickname}
         </Text>
-      </View>
+      </TouchableOpacity>
+      {Operate && <Operate />}
     </View>
   );
 };
@@ -23,7 +46,7 @@ const styles = StyleSheet.create({
   constiner: {
     width: "100%",
     borderBottomColor: "#e3e3e3",
-    paddingBottom: 12,
+    padding: 20,
     borderBottomWidth: 1,
   },
   user: {
@@ -34,5 +57,6 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     marginRight: 10,
+    borderRadius: 18,
   },
 });

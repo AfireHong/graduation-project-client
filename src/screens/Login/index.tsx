@@ -37,6 +37,8 @@ const Login: FC<Props> = ({ navigation }) => {
       acount: username,
       password: encryptStr(password),
     });
+    console.log(res);
+
     setLoading(false);
     if (res?.success) {
       setStorage("token", res.data.token);

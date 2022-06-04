@@ -54,7 +54,7 @@ const SocialScreen: FC<Props> = (props) => {
           paddingHorizontal: 20,
         }}
       >
-        <UserItem></UserItem>
+        {/* <UserItem></UserItem> */}
       </View>
     </SafeAreaView>
   );

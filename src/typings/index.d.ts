@@ -20,9 +20,6 @@ interface userInfo {
   user_create_at: string;
 }
 
-interface getUserInfoReq {
-  user_acount: string;
-}
 interface userReq {
   nickname?: string;
   acount: string;
@@ -37,6 +34,7 @@ type userBaseInfo = {
   user_id: string;
   nickname: string;
   avatar: string;
+  profile: string;
 };
 
 type pageInfoI = {
