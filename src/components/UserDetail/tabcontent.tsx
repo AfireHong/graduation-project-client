@@ -12,6 +12,7 @@ import MomentCard from "@/components/MomentCard";
 import { MomentItem } from "@/components/MomentCard";
 import moment, { getMomentRsp } from "@/models/moment";
 import { Box } from "native-base";
+import { getStorage } from "@/utlis/storage";
 
 const MomentModel = new moment();
 
@@ -59,6 +60,27 @@ const MomentDetail: FC<{ user_id?: string }> = ({ user_id }) => {
   useEffect(() => {
     getMyMoment();
   }, [getMyMoment]);
+  useEffect(() => {
+    console.log(curTab);
+
+    if (curTab === 0) {
+      getMyMoment();
+    }
+    if (curTab === 1) {
+      getStorage("collectMoment").then((res) => {
+        console.log(res);
+
+        setUserMoment(res);
+        console.log(userMoment);
+      });
+    }
+    if (curTab === 2) {
+      getStorage("likeMoment").then((res) => {
+        setUserMoment(res);
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [curTab, getMyMoment]);
   const renderItem = ({
     item,
   }: {
@@ -91,7 +113,7 @@ const MomentDetail: FC<{ user_id?: string }> = ({ user_id }) => {
       >
         {userMoment.length > 0 ? (
           <MasonryList
-            keyExtractor={(item: MomentItem): string => item.id}
+            keyExtractor={(item: MomentItem): string => item?.id as string}
             contentContainerStyle={{
               paddingHorizontal: 10,
               alignSelf: "stretch",
@@ -103,14 +125,16 @@ const MomentDetail: FC<{ user_id?: string }> = ({ user_id }) => {
             onRefresh={() => getMyMoment()}
           />
         ) : (
-          <Text
-            style={{
-              color: "#3c3c3c",
-              marginTop: 40,
-            }}
-          >
-            暂无内容
-          </Text>
+          <TouchableOpacity onPress={() => getMyMoment()}>
+            <Text
+              style={{
+                color: "#3c3c3c",
+                marginTop: 40,
+              }}
+            >
+              暂无内容
+            </Text>
+          </TouchableOpacity>
         )}
       </Box>
     </View>

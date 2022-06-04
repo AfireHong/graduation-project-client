@@ -14,7 +14,6 @@ const Empty = memo(() => {
         justifyContent: "center",
         alignItems: "center",
         flex: 1,
-        marginTop: 40,
       }}
     >
       暂无内容
@@ -63,18 +62,21 @@ const TabViewComponent: FC<TabProp> = ({ momentList, userList, tabChange }) => {
     };
     return (
       <Box style={{ flex: 1 }}>
-        <MasonryList
-          keyExtractor={(item: MomentItem): string => item.id}
-          contentContainerStyle={{
-            paddingHorizontal: 10,
-            alignSelf: "stretch",
-            justifyContent: "space-between",
-          }}
-          numColumns={2}
-          data={momentList as unknown[]}
-          renderItem={renderItem}
-          ListEmptyComponent={Empty}
-        />
+        {momentList.length > 0 ? (
+          <MasonryList
+            keyExtractor={(item: MomentItem): string => item.id as string}
+            contentContainerStyle={{
+              paddingHorizontal: 10,
+              alignSelf: "stretch",
+              justifyContent: "space-between",
+            }}
+            numColumns={2}
+            data={momentList as unknown[]}
+            renderItem={renderItem}
+          />
+        ) : (
+          <Empty />
+        )}
       </Box>
     );
   };
@@ -91,11 +93,15 @@ const TabViewComponent: FC<TabProp> = ({ momentList, userList, tabChange }) => {
     };
     return (
       <Box style={{ flex: 1 }}>
-        <FlatList
-          keyExtractor={(item) => item.user_id}
-          data={userList}
-          renderItem={renderItem}
-        />
+        {userList.length > 0 ? (
+          <FlatList
+            keyExtractor={(item) => item.user_id}
+            data={userList}
+            renderItem={renderItem}
+          />
+        ) : (
+          <Empty />
+        )}
       </Box>
     );
   };
@@ -116,4 +122,4 @@ const TabViewComponent: FC<TabProp> = ({ momentList, userList, tabChange }) => {
     />
   );
 };
-export default memo(TabViewComponent);
+export default TabViewComponent;

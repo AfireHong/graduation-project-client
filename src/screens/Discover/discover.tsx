@@ -42,40 +42,40 @@ const words = [
 const rankList = [
   {
     id: "1",
-    keywords: "热门第一条",
+    keywords: "北京冰雹",
   },
   {
     id: "2",
-    keywords: "热门第一条",
+    keywords: "间谍过家家",
   },
   {
     id: "3",
-    keywords: "热门第一条",
+    keywords: "中国女排",
   },
   {
     id: "4",
-    keywords: "热门第一条",
+    keywords: "浴血黑帮",
   },
   {
     id: "5",
-    keywords: "热门第一条",
+    keywords: "如何看待成年人的崩溃",
   },
   {
     id: "6",
-    keywords: "热门第一条",
+    keywords: "开始推理吧",
   },
   {
     id: "7",
-    keywords: "热门第一条",
+    keywords: "Rng夺冠",
   },
   {
     id: "8",
-    keywords: "热门第一条",
+    keywords: "热门榜单多少条",
   },
 
   {
     id: "9",
-    keywords: "热门第一条",
+    keywords: "如何变成喜欢的样子",
   },
   {
     id: "10",

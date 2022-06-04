@@ -5,13 +5,13 @@ import { colors } from "@/constants/theme";
 import { useNavigation } from "@react-navigation/native";
 
 export interface MomentItem {
-  title: string;
-  userNickname: string;
-  userAvatar: string;
-  coverImg: string;
-  likes: number;
-  id: string;
-  userId: string;
+  title?: string;
+  userNickname?: string;
+  userAvatar?: string;
+  coverImg?: string;
+  likes?: number;
+  id?: string;
+  userId?: string;
 }
 const MomentCard: FC<{ item: MomentItem; userClick?: () => void }> = memo(
   ({ item, userClick }) => {

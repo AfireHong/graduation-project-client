@@ -131,7 +131,7 @@ const Home: FC<Props> = ({ navigation }) => {
         }}
       >
         <MasonryList
-          keyExtractor={(item: MomentItem): string => item.id}
+          keyExtractor={(item: MomentItem): string => item.id as string}
           contentContainerStyle={{
             paddingHorizontal: 10,
             alignSelf: "stretch",

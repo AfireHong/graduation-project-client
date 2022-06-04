@@ -19,6 +19,8 @@ import { getMomentRsp } from "@/models/moment";
 import { getStorage } from "@/utlis/storage";
 import CommentModel, { comentListRsp } from "@/models/comment";
 import moment from "moment";
+import { setMomentStorage, removeMomentStorage } from "@/utlis/storage";
+
 const momentModel = new Moment();
 const commentModel = new CommentModel();
 
@@ -96,9 +98,14 @@ const useComment = (moment_id: string) => {
     getComment,
   };
 };
-
+const colors = {
+  deActive: "#9a9a9a",
+  active: "#f56969",
+};
 const MomentScreen: FC<Props & { id: string }> = () => {
   const navigation = useNavigation();
+  const [lickColor, setLickColor] = useState(colors.deActive);
+  const [starColor, setStarColor] = useState(colors.deActive);
   const [momentInfo, setMomentInfo] = useState<getMomentRsp>();
   const route = useRoute<momentProps>();
   const getMoment = useCallback(async () => {
@@ -127,6 +134,44 @@ const MomentScreen: FC<Props & { id: string }> = () => {
     getUserInfo();
   }, [getMoment, getUserInfo]);
 
+  const likeMoment = () => {
+    if (lickColor === colors.active) {
+      setLickColor(colors.deActive);
+    } else {
+      setMomentStorage(
+        {
+          title: momentInfo?.moment_title,
+          userNickname: momentInfo?.userInfo.nickname,
+          userAvatar: momentInfo?.userInfo.avatar,
+          coverImg: momentInfo?.moment_images[0],
+          likes: momentInfo?.moment_like_nums,
+          id: momentInfo?.moment_id,
+          userId: momentInfo?.userInfo.user_id,
+        },
+        "likeMoment"
+      );
+      setLickColor(colors.active);
+    }
+  };
+  const starMoment = () => {
+    if (starColor === colors.active) {
+      setStarColor(colors.deActive);
+    } else {
+      setMomentStorage(
+        {
+          title: momentInfo?.moment_title,
+          userNickname: momentInfo?.userInfo.nickname,
+          userAvatar: momentInfo?.userInfo.avatar,
+          coverImg: momentInfo?.moment_images[0],
+          likes: momentInfo?.moment_like_nums,
+          id: momentInfo?.moment_id,
+          userId: momentInfo?.userInfo.user_id,
+        },
+        "collectMoment"
+      );
+      setStarColor(colors.active);
+    }
+  };
   const showKeyboard = () => {
     setShowModal(true);
   };
@@ -341,14 +386,15 @@ const MomentScreen: FC<Props & { id: string }> = () => {
             说点什么~
           </Box>
         </TouchableOpacity>
-        <TouchableOpacity>
-          <AntDesign name={"hearto"} size={30} color={"#9a9a9a"} />
+        <TouchableOpacity onPress={() => likeMoment()}>
+          <AntDesign name={"hearto"} size={30} color={lickColor} />
         </TouchableOpacity>
         <TouchableOpacity
           style={{ flexDirection: "row", alignItems: "center" }}
+          onPress={() => starMoment()}
         >
-          <AntDesign color={"#9a9a9a"} size={30} name={"staro"} />
-          <Text ml={1} fontSize={18}>
+          <AntDesign color={starColor} size={30} name={"staro"} />
+          <Text ml={1} fontSize={18} color={starColor}>
             收藏
           </Text>
         </TouchableOpacity>

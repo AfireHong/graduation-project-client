@@ -45,8 +45,6 @@ export default class moment extends HTTP {
     return this.fetchData<getMomentRsp>("/moment", { moment_id }, "get");
   }
   search(data: searchMomentReq) {
-    console.log(data);
-
     return this.fetchData<searchMomentRsp>("/moment/search", data, "get");
   }
 }

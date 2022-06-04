@@ -94,6 +94,8 @@ const SearchResult: FC = () => {
   });
   const tabchange = (i: number) => {
     setIndex(i);
+    console.log(i);
+
     btnClick();
   };
   const btnClick = () => {
